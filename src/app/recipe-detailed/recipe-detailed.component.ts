@@ -1,6 +1,6 @@
 import { filter } from 'rxjs';
 import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, HostListener } from '@angular/core';
-import { RouterModule, ActivatedRoute, Router, NavigationStart, NavigationEnd } from '@angular/router';
+import { RouterModule, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgIf, CommonModule, ViewportScroller, NgFor } from '@angular/common';
 import { RecipeService } from '../recipe.service';
@@ -36,6 +36,7 @@ export class RecipeDetailedComponent {
   slidesPerView: number = 4;
   spaceBetween = 33;
   screenWidth!: number;
+  showCarousel = true;
 
 
   constructor(
@@ -44,15 +45,38 @@ export class RecipeDetailedComponent {
     private recipeService: RecipeService,  // 獲取資料
     private scroller: ViewportScroller,
     private userService: UserService,
-  ) { }
+  ) {
+
+}
 
   ngOnInit(): void {
     this.getRecipe();
+
+    // 監聽路由變化，在同一個頁面點擊其他食譜時，重新獲取食譜資料
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd){
         this.getRecipe();
       }
     })
+  }
+
+    /**
+   * 點選食譜跑出相對食譜 detailed
+   */
+  // 還要在 sevice 裡新增 getRecipes() 的方法
+  // getRecipe(): void {
+  //   const id = Number(this.route.snapshot.paramMap.get('id'));
+  //   this.recipeService.getRecipe(id)
+  //     .subscribe(res => this.recipe = res);
+  //   this.otherRecipes = this.recipes.filter((res) => res.id !== id)
+  // }
+
+  getRecipe(): void {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.recipeService.getRecipe(id).then((recipe) => {
+      this.recipe = recipe;
+      this.otherRecipes = this.recipes.filter((res) => res.id !== id)
+    });
   }
 
   @HostListener('window:resize')
@@ -71,8 +95,6 @@ export class RecipeDetailedComponent {
       this.spaceBetween = 20;
     }
   }
-
-  showCarousel = true;
 
   /**
    * 跳出需要登入的 modal
@@ -145,16 +167,6 @@ export class RecipeDetailedComponent {
     }
   }
 
-  /**
-   * 點選食譜跑出相對食譜 detailed
-   */
-  // 還要在 sevice 裡新增 getRecipes() 的方法
-  getRecipe(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.recipeService.getRecipe(id)
-      .subscribe(res => this.recipe = res);
-    this.otherRecipes = this.recipes.filter((res) => res.id !== id)
-  }
 
   /**
    * setOffset 設置滾動偏差, y 是 header 高度再加一點

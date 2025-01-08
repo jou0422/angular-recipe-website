@@ -46,7 +46,6 @@ export class DiscoverComponent {
   }
 
   public ngOnInit(): void {
-    this.getRecipes();
     this.ingredients.sort((a, b) => a.localeCompare(b));
     this.types.sort((a, b) => a.localeCompare(b));
     this.cuisines.sort((a, b) => a.localeCompare(b));
@@ -129,10 +128,16 @@ export class DiscoverComponent {
 
 
 
-  private getRecipes(): void {
-    this.recipeService.getRecipes()
-      .subscribe(recipes => this.recipes = recipes);
-    // .subscribe(recipes => this.recipes = recipes.slice(0, 5)) // 回傳第1~5個
+  // private getRecipes(): void {
+  //   this.recipeService.getRecipes()
+  //     .subscribe(recipes => this.recipes = recipes);
+  //   // .subscribe(recipes => this.recipes = recipes.slice(0, 5)) // 回傳第1~5個
+  // }
+
+  getRecipes(): void {
+    this.recipeService.getRecipes().then((recipes: RecipeDetail[]) => {
+      this.recipes = recipes;
+    })
   }
 
 }

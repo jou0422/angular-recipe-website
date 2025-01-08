@@ -43,7 +43,8 @@ export const Recipes: RecipeDetail[] = [
         }, {
             persona: 'Bob',
             comment: 'great',
-            like: 0, isLike: 0
+            like: 0,
+            isLike: 0
         }, {
             persona: 'May',
             comment: 'good recipe',
@@ -57,7 +58,8 @@ export const Recipes: RecipeDetail[] = [
         }, {
             persona: 'Peter',
             comment: '<3',
-            like: 3, isLike: 0
+            like: 3,
+            isLike: 0
         }, {
             persona: 'Elsa',
             comment: 'easy peasy',
@@ -621,7 +623,7 @@ export const Recipes: RecipeDetail[] = [
             weight: 8,
             type: WeightType.g,
         }, {
-            element: 'Fibre',
+            element: 'Salt',
             weight: 0.6,
             type: WeightType.g,
         }]

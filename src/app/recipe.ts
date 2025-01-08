@@ -7,7 +7,6 @@
 // }
 
 export interface RecipeDetail {
-    // total 14
     id: number;
     thumbnail: string;
     name: string;

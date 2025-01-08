@@ -24,7 +24,7 @@ export class AppComponent {
   title = 'my-recipe';
 
   constructor(private userService: UserService, private scroller : ViewportScroller){
-    this.scroller.setOffset([0,120])
+    this.scroller.setOffset([0,120]);
   }
 
   ngOnInit(): void {

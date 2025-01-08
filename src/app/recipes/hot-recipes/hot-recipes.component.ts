@@ -1,7 +1,7 @@
+import { RecipeDetail } from './../../recipe';
 import { Component } from '@angular/core';
 import { CommonModule, ViewportScroller  } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { RecipeDetail } from '../../recipe';
 import { RecipeDetailedComponent } from "../../recipe-detailed/recipe-detailed.component";
 import { RecipeService } from '../../recipe.service';
 
@@ -38,10 +38,17 @@ export class HotRecipesComponent {
 
 
   //非同步從遠段伺服器獲取資料
+  // getRecipes() : void{
+  //   this.recipeService.getRecipes()
+  //       // .subscribe (recipes => this.recipes = recipes);
+  //       .subscribe (recipes => this.recipes = recipes.slice (0,4)) // 回傳第1~5個
+  // }
+
   getRecipes() : void{
-    this.recipeService.getRecipes()
-        // .subscribe (recipes => this.recipes = recipes);
-        .subscribe (recipes => this.recipes = recipes.slice (0,4)) // 回傳第1~5個
+    this.recipeService.getRecipes().then((recipes: RecipeDetail[]) => {
+      // this.recipes = recipes.slice(0, 4);
+      this.recipes = recipes;
+    })
   }
 
   ngOnInit(): void {
