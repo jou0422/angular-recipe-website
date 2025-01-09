@@ -174,7 +174,7 @@
       </div>
       <div class="card-body">
         <div class="d-flex flex-row flex-wrap">
-          <p class="card-text hashtag" *ngFor="let hashtag of recipe.hashtag">#{{ hashtag }}</p>
+          <p class="card-text hashtag" *ngFor="let hashtag of recipe.hashtag" (click)="onClickHashtag(hashtag)">#{{ hashtag }}</p>
         </div>
         <h4><a routerLink="/recipe/{{ recipe.id }}">{{ recipe.name }}</a></h4>
         <p class="card-text">{{ recipe.timeMin }} mins</p>

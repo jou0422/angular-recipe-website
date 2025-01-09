@@ -46,7 +46,7 @@ export class RecipeDetailedComponent {
     private scroller: ViewportScroller,
     private userService: UserService,
   ) {
-
+    this.getRecipe();
 }
 
   ngOnInit(): void {
@@ -72,7 +72,7 @@ export class RecipeDetailedComponent {
   // }
 
   getRecipe(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    const id = Number(this.route.snapshot.params['id']);
     this.recipeService.getRecipe(id).then((recipe) => {
       this.recipe = recipe;
       this.otherRecipes = this.recipes.filter((res) => res.id !== id)
@@ -211,5 +211,10 @@ export class RecipeDetailedComponent {
     this.onClickSubmitComment();
   }
 
+  onClickHashtag(filter:string){
+    this.router.navigate(['discover'], {
+      queryParams: { hashtag: filter }
+    })
+  }
 
 }

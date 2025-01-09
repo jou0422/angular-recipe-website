@@ -51,12 +51,21 @@ export class DiscoverComponent {
     this.cuisines.sort((a, b) => a.localeCompare(b));
 
     // 從 URL 參數中獲取 tag
+    // this.route.queryParams.subscribe(parama => {
+    //   if (parama['hashtag']) {
+    //     // 自動選擇該 hashtag
+    //     this.selectHashtag(parama['hashtag']);
+    //   }
+    // })
+
     this.route.queryParams.subscribe(parama => {
       if (parama['hashtag']) {
         // 自動選擇該 hashtag
+        // if 條件為必要，如果沒有 if 就會代入空參數，就會沒有食譜顯示
         this.selectHashtag(parama['hashtag']);
       }
     })
+
   }
 
   public selectHashtag(filter: string) {

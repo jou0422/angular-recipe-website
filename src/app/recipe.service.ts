@@ -10,7 +10,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 })
 export class RecipeService {
   public searchKeyword: BehaviorSubject<string> = new BehaviorSubject('');
-  url = 'http://localhost:3000/recipes';
+  url = 'http://localhost:3000/recipe';
 
   constructor() { }
 
@@ -32,7 +32,7 @@ export class RecipeService {
   // }
 
   async getRecipe(id: number): Promise<RecipeDetail> {
-    const recipe = await fetch(`${this.url}/${id}`)
+    const recipe = await fetch(`${this.url}/${id}`);
     return (await recipe.json()) ?? {};
   }
 }

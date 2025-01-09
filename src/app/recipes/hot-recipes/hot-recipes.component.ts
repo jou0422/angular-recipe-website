@@ -4,6 +4,7 @@ import { CommonModule, ViewportScroller  } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { RecipeDetailedComponent } from "../../recipe-detailed/recipe-detailed.component";
 import { RecipeService } from '../../recipe.service';
+import { Recipes } from '../../mock-recipes';
 
 
 
@@ -22,12 +23,12 @@ export class HotRecipesComponent {
   //   this.selectedRecipe = recipe;
   // }
 
-  recipes: RecipeDetail[] = [];
+  recipes: RecipeDetail[] = Recipes;
 
   constructor(
     private recipeService: RecipeService,
     private scroller : ViewportScroller,
-  private router:Router) {
+    private router:Router) {
   }
 
 
@@ -46,8 +47,7 @@ export class HotRecipesComponent {
 
   getRecipes() : void{
     this.recipeService.getRecipes().then((recipes: RecipeDetail[]) => {
-      // this.recipes = recipes.slice(0, 4);
-      this.recipes = recipes;
+      this.recipes = recipes.slice(0, 4);
     })
   }
 

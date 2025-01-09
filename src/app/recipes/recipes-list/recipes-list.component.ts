@@ -25,7 +25,7 @@ export class RecipesListComponent {
   screenWidth!: number;
   filter!: string;
 
-  constructor( private router:Router){}
+  constructor(private router:Router){}
 
   @HostListener('window:resize')
   getScreenWudth(){
