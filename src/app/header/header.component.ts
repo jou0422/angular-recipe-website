@@ -1,7 +1,7 @@
 import { Component, inject, input } from '@angular/core';
 import { NavigationStart, Router, RouterModule } from '@angular/router';
 import { CommonModule, NgIf } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RecipeService } from '../recipe.service';
 import { UserService } from '../user.service';
 import { Observable } from 'rxjs';
@@ -21,6 +21,11 @@ export class HeaderComponent {
   showHeader: boolean = false;
   isLoggedIn!: Observable<boolean>;
   private modalService = inject(NgbModal);
+  form = new FormGroup({
+    search : new FormControl('', {
+      validators: [Validators.required]
+    })
+  })
 
   // 監聽路由變化事件
   constructor(router: Router,

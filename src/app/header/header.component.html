@@ -17,10 +17,10 @@
             <a class="nav-link" routerLink="/discover">Discover</a>
           </li>
           <li>
-            <form class="d-flex input-group" role="search">
+            <form class="d-flex input-group" role="search" [formGroup]="form">
               <input class="form-control search" type="text" placeholder="Search Recipes..." aria-label="Search"
-                name="search" [(ngModel)]="search">
-              <button class="btn bi bi-search" type="submit" routerLink="/search" (click)="setKeywordValue()"></button>
+                name="search" [(ngModel)]="search" formControlName="search">
+              <button class="btn bi bi-search" type="submit" routerLink="/search" (click)="setKeywordValue()" [disabled]="form.invalid"></button>
             </form>
           </li>
           <li>

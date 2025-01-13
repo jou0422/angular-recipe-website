@@ -47,7 +47,6 @@ export class HotRecipesComponent {
 
   getRecipes() : void{
     this.recipeService.getRecipes().then((recipes: RecipeDetail[]) => {
-      // this.recipes = recipes.slice(0, 4);
       this.recipes = recipes.sort((a,b) => b.likeQty - a.likeQty).slice(0, 4);
     })
   }
