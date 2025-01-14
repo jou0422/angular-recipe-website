@@ -21,16 +21,12 @@ export class HeaderComponent {
   showHeader: boolean = false;
   isLoggedIn!: Observable<boolean>;
   private modalService = inject(NgbModal);
-  form = new FormGroup({
-    search : new FormControl('', {
-      validators: [Validators.required]
-    })
-  })
 
   // 監聽路由變化事件
-  constructor(router: Router,
+  constructor(
+    public router: Router,
     private recipeService: RecipeService,
-    public userService: UserService) {
+    public userService: UserService, ) {
 
     router.events.forEach((event: any) => {
       if (event instanceof NavigationStart) {
@@ -52,6 +48,9 @@ export class HeaderComponent {
   }
 
   public setKeywordValue(): void {
+    this.router.navigate(['search'], {
+      queryParams: { keyword : this.search }
+    })
     this.recipeService.searchKeyword.next(this.search);
   }
 }

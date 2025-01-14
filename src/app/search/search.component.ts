@@ -26,8 +26,6 @@ export class SearchComponent {
 
   filterDisplay: boolean = false;
 
-  recipes: RecipeDetail[] = Recipes;
-
   noRecipesFound: boolean = false;
 
   filteredIngredients: string[] = [];
@@ -41,6 +39,8 @@ export class SearchComponent {
   searchTime: string = '';
   searchType: string = '';
   searchCuisine: string = '';
+
+  filteredRecipes: RecipeDetail[] = Recipes;
 
 
   constructor(
@@ -72,8 +72,21 @@ export class SearchComponent {
         // if 條件為必要，如果沒有 if 就會代入空參數，就會沒有食譜顯示
         this.selectHashtag(parama['hashtag']);
       }
+      if (parama['keyword']) {
+        this.searchRecipe(parama['keyword']);
+      }
     })
 
+  }
+
+  searchRecipe(text: string) {
+      this.filteredRecipes = Recipes;
+      this.filteredRecipes = Recipes.filter(res => res.name.toLowerCase().includes(text.toLowerCase()));
+      if (this.filteredRecipes.length === 0) {
+        this.noRecipesFound = true;
+      } else {
+        this.noRecipesFound = false;
+      }
   }
 
   searchOption(option: string) {
@@ -151,7 +164,7 @@ export class SearchComponent {
     //   result = selectedItem;
     // }
     this.filters.push({ Item: type, SelectedItem: selectedItem });
-    this.recipes = this.findRecipe();
+    this.filteredRecipes = this.findRecipe();
   }
 
   /**
@@ -160,7 +173,7 @@ export class SearchComponent {
    * @returns finalRecipe
    */
   private findRecipe(): RecipeDetail[] {
-    let finalRecipe = this.recipes.filter(res =>
+    let finalRecipe = this.filteredRecipes.filter(res =>
       this.filters.every(ele => {
         if (ele.Item === 'types' || ele.Item === 'cuisines') return res.hashtag.includes(ele.SelectedItem);
         if (ele.Item === 'cooktime') return res.timeMin === Number(ele.SelectedItem);
@@ -182,8 +195,7 @@ export class SearchComponent {
   */
   public removeSingleFilter(index: number) {
     this.filters.splice(index, 1);
-    this.getRecipes();
-    this.recipes = this.findRecipe();
+    this.searchRecipe(this.recipeService.searchKeyword.value);
   }
 
 
@@ -193,6 +205,14 @@ export class SearchComponent {
   public clearAllFilters() {
     this.filters.splice(0);
     this.getRecipes();
+    this.recipeService.searchKeyword.next('');
+    this.removeQueryParams();
+  }
+
+  removeQueryParams(){
+    this.router.navigate([], {
+      queryParams: {}
+    })
   }
 
 
@@ -208,7 +228,7 @@ export class SearchComponent {
 
   getRecipes(): void {
     this.recipeService.getRecipes().then((recipes: RecipeDetail[]) => {
-      this.recipes = recipes;
+      this.filteredRecipes = recipes;
     })
   }
 

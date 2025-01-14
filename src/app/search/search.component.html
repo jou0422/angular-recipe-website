@@ -1,8 +1,14 @@
-<div class="search-header">
-  <section>
-    <h2>"{{recipeService.searchKeyword | async}}"</h2>
-    <h2>We have found those for you...</h2>
-  </section>
+<div class="row row-cols-xs-1 d-flex align-items-center discover-header">
+  <div class="col discover-title">
+    <img src="./assets/pics/search_recipes.png" alt="">
+    <section>
+      <h1>"{{recipeService.searchKeyword | async}}"</h1>
+      <h2>We have found those for you...</h2>
+    </section>
+  </div>
+  <div class="col discover-img">
+    <img src="./assets/pics/discover.png" alt="">
+  </div>
 </div>
 
 <div class="discover-body">
@@ -145,7 +151,7 @@
 
 <div class="body-div">
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 hot-row">
-    <div class="col" *ngFor="let recipe of recipes">
+    <div class="col" *ngFor="let recipe of filteredRecipes">
       <div class="card shadow h-100">
         <div class="card-img" style="background-image: url('{{recipe.thumbnail}}');"
           routerLink="/recipe/{{ recipe.id }}">
