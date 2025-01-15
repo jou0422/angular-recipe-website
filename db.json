@@ -705,30 +705,5 @@
           "type": 1
       }]
     }
-  ],
-  "user":[
-    {
-      "username":"Leticia",
-      "dateOfBirth": "1997-04-22",
-      "phone":"0912345678",
-      "email":"cia@test.com",
-      "password":"123456789"
-    },
-    {
-      "username":"Wen",
-      "dateOfBirth": "1998-12-27",
-      "phone":"0987654321",
-      "email":"wen@test.com",
-      "password":"987654231"
-    }
-  ],
-
-  "filter":[
-    {
-      "filterIngredient": ["apple", "egg", "blueberries","plain flour", "butter", "yogurt", "sugar", "ramen", "steak", "tomato", "chicken", "rice", "onion"],
-      "filterTime":["5", "30", "45", "50", "60"],
-      "filterType":["breakfast", "brunch", "lunch", "dinner", "beverages", "desserts", "bake", "cupcakes", "pie", "cocktail", "curry"],
-      "filterCuisine":["american", "chinese", "korean", "indian"]
-    }
   ]
 }
