@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/my-recipe",
+            "outputPath": "dist/angular-recipe-website",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -23,7 +23,7 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.png",
-              "src/assets"
+              "srcassets"
             ],
             "styles": [
               "src/styles.scss"
@@ -82,7 +82,7 @@
             "tsConfig": "tsconfig.spec.json",
             "assets": [
               "src/favicon.png",
-              "src/assets"
+              "srcassets"
             ],
             "styles": [
               "src/styles.css"

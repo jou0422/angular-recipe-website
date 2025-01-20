@@ -15,11 +15,11 @@
         <h2>{{ recipe.name }}</h2>
         <div class="row row-cols-2 row-cols-sm-2 row-cols-md-4 row-cols-xl-2 row-cols-xxl-4 recipe-info">
           <div class="col d-flex align-items-center">
-            <img src="/assets/pics/persona2.png" alt="">
+            <img src="assets/pics/persona2.png" alt="">
             <p>{{ recipe.author }}</p>
           </div>
           <div class="col d-flex align-items-center">
-            <img src="/assets/pics/add.png" alt="">
+            <img src="assets/pics/add.png" alt="">
             <p>{{ recipe.date }}</p>
           </div>
           <div class="col d-flex align-items-center">
@@ -126,7 +126,7 @@
           <div class="comment-overflow dir-scrollbar">
             <ng-container *ngFor="let comment of recipe.comments; let i = index">
               <div class="d-flex align-items-center comment">
-                <a><img class="persona" src="/assets/pics/persona2.png" alt=""></a>
+                <a><img class="persona" src="assets/pics/persona2.png" alt=""></a>
                 <div>
                   <h5>{{comment.persona}}</h5>
                   <p>{{comment.comment}}</p>
@@ -143,7 +143,7 @@
 
           <div class="row my-comment row-cols-1 row-cols-sm-1 row-cols-md-3 row-cols-lg-1 row-cols-xl-3">
             <div class="col d-flex align-items-center my-persona">
-              <a><img class="persona" src="/assets/pics/persona1.png" alt=""></a>
+              <a><img class="persona" src="assets/pics/persona1.png" alt=""></a>
               <h5>Me</h5>
             </div>
             <div class="col">

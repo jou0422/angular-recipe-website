@@ -17,7 +17,7 @@ export const Recipes: RecipeDetail[] = [
     {
         // 1
         id: 1,
-        thumbnail: '/assets/pics/bbmf.jpg',
+        thumbnail: 'assets/pics/bbmf.jpg',
         name: 'Blueberry Muffins',
         hashtag: ['desserts'],
         timeMin: 45,
@@ -153,7 +153,7 @@ export const Recipes: RecipeDetail[] = [
     // 2
     {
         id: 2,
-        thumbnail: '/assets/pics/breakfast.jpg',
+        thumbnail: 'assets/pics/breakfast.jpg',
         name: 'Eggs Benedict',
         hashtag: ['breakfast','brunch',  'american'],
         timeMin: 30,
@@ -275,7 +275,7 @@ export const Recipes: RecipeDetail[] = [
     // 3
     {
         id: 3,
-        thumbnail: '/assets/pics/lunch.jpg',
+        thumbnail: 'assets/pics/lunch.jpg',
         name: 'Beef Noodles',
         hashtag: ['lunch', 'chinese'],
         timeMin: 30,
@@ -384,7 +384,7 @@ export const Recipes: RecipeDetail[] = [
     // 4
     {
         id: 4,
-        thumbnail: '/assets/pics/dinner.jpg',
+        thumbnail: 'assets/pics/dinner.jpg',
         name: 'Chicken Curry',
         hashtag: ['lunch', 'dinner', 'curry', 'indian'],
         timeMin: 50,
@@ -531,7 +531,7 @@ export const Recipes: RecipeDetail[] = [
     // 5
     {
         id: 5,
-        thumbnail: '/assets/pics/applepie.jpg',
+        thumbnail: 'assets/pics/applepie.jpg',
         name: 'Apple Pie',
         hashtag: ['desserts', 'bake', 'pie'],
         timeMin: 60,
@@ -630,7 +630,7 @@ export const Recipes: RecipeDetail[] = [
     // 6
     {
         id: 6,
-        thumbnail: '/assets/pics/cocktail.jpg',
+        thumbnail: 'assets/pics/cocktail.jpg',
         name: 'Hurricane Cocktail',
         hashtag: ['cocktail', 'beverages'],
         timeMin: 5,
@@ -746,18 +746,18 @@ export const Recipes: RecipeDetail[] = [
 
 
 export const Typelist: TypeList[] = [{
-    thumbnail: '/assets/pics/breakfast.jpg',
+    thumbnail: 'assets/pics/breakfast.jpg',
     hashtag: 'breakfast'
 }, {
-    thumbnail: '/assets/pics/lunch.jpg',
+    thumbnail: 'assets/pics/lunch.jpg',
     hashtag: 'lunch'
 }, {
-    thumbnail: '/assets/pics/dinner.jpg',
+    thumbnail: 'assets/pics/dinner.jpg',
     hashtag: 'dinner'
 }, {
-    thumbnail: '/assets/pics/applepie.jpg',
+    thumbnail: 'assets/pics/applepie.jpg',
     hashtag: 'desserts'
 }, {
-    thumbnail: '/assets/pics/cocktail.jpg',
+    thumbnail: 'assets/pics/cocktail.jpg',
     hashtag: 'beverages'
 }]
