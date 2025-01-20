@@ -1,24 +1,22 @@
+import { UsersInfo } from './../user';
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Location, NgClass, NgIf } from '@angular/common';
 import { ModalComponent } from '../modal/modal.component';
-import { Users } from '../mock-users';
-import { ForgotpasswordComponent } from "../forgotpassword/forgotpassword.component";
 import { UserService } from '../user.service';
 import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterModule, ReactiveFormsModule, NgClass, NgIf, ForgotpasswordComponent],
+  imports: [RouterModule, ReactiveFormsModule, NgClass],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 
 export class LoginComponent {
-
   private modalService = inject(NgbModal);
   showPassword: boolean = false;
   pwForgot: boolean = false;
@@ -32,14 +30,32 @@ export class LoginComponent {
     remember: new FormControl(true)
   })
 
-  usersInfo = Users;
+
+  usersInfo: UsersInfo[] = [];
+
+
 
   isLoggedIn!: Observable<boolean>;
 
 
-  constructor(private location: Location, public userService: UserService, private router: Router) {
+  constructor(
+    private location: Location,
+    public userService: UserService,
+    private router: Router) {
     this.isLoggedIn = userService.isLoggedIn();
+    this.getUsers();
   }
+
+  ngOnInit(): void {
+    this.getUsers()
+  }
+
+  getUsers() {
+    this.userService.getUsers().then((users: UsersInfo[]) => {
+      this.usersInfo = users;
+    })
+  }
+
 
   openLoginModal(persona: string) {
     const modalRef = this.modalService.open(ModalComponent, { centered: true, backdrop: 'static' });

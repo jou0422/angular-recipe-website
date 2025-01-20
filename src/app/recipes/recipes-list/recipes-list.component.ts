@@ -2,7 +2,6 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RecipeDetail, TypeList } from '../../recipe';
 import { Router, RouterModule } from '@angular/router';
-import { Recipes } from '../../mock-recipes';
 
 
 @Component({
@@ -18,7 +17,7 @@ import { Recipes } from '../../mock-recipes';
 
 export class RecipesListComponent {
   types : TypeList [] = [];
-  recipes = Recipes;
+  recipes = [];
 
   slidesPerView: number = 4;
   spaceBetween = 33;

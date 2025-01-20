@@ -10,6 +10,10 @@
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
+        "deploy": {
+        "builder": "angular-cli-ghpages:deploy",
+        "options": {}
+        },
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {

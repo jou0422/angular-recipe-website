@@ -9,7 +9,6 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ModalComponent } from '../modal/modal.component';
 import { UserService } from '../user.service';
 import { SwiperModule } from 'swiper/types';
-import { Recipes } from '../mock-recipes';
 
 @Component({
   selector: 'app-recipe-detailed',
@@ -30,7 +29,7 @@ export class RecipeDetailedComponent {
     }),
   })
   recipe!: RecipeDetail;
-  recipes: RecipeDetail[] = Recipes;
+  recipes: RecipeDetail[] = [];
   otherRecipes: RecipeDetail[] = [];
 
   slidesPerView: number = 4;
@@ -50,6 +49,9 @@ export class RecipeDetailedComponent {
 }
 
   ngOnInit(): void {
+    this.recipeService.getRecipes().then((recipes: RecipeDetail[]) => {
+    this.recipes = recipes
+    })
     this.getRecipe();
 
     // 監聽路由變化，在同一個頁面點擊其他食譜時，重新獲取食譜資料
@@ -207,11 +209,13 @@ export class RecipeDetailedComponent {
       like: 0,
       isLike: 0
     }
-    this.recipe.comments.push(newComment)
+    this.recipe.comments.push(newComment);
+    this.recipe.commentQty++;
     this.onClickSubmitComment();
   }
 
-  onClickHashtag(filter:string){
+
+    onClickHashtag(filter:string){
     this.router.navigate(['discover'], {
       queryParams: { hashtag: filter }
     })

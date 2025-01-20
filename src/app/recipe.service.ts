@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { RecipeDetail } from './recipe';
+import { Commentinfo, RecipeDetail } from './recipe';
 // import { Recipes } from './mock-recipes';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 
@@ -35,12 +35,7 @@ export class RecipeService {
     const recipe = await fetch(`${this.url}/${id}`);
     return (await recipe.json()) ?? {};
   }
+
+
+
 }
-
-
-// Recipes >> 全部菜單 (HEROS)
-// recipes 屬性 >> expose Recipes 全部的陣列 (heros)
-// recipe 單個物件
-// RecipeDetail 單個細項 (Hero)
-
-// : 宣告型別,  = 賦予值

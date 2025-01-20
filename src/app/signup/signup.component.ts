@@ -4,9 +4,9 @@ import { Router, RouterModule } from '@angular/router';
 import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { JsonPipe, Location, NgClass } from '@angular/common';
 import { ModalComponent } from '../modal/modal.component';
-import { Users, UsersInfo } from '../mock-users';
 import { Observable } from 'rxjs';
 import { UserService } from '../user.service';
+import { UsersInfo } from '../user';
 
 
 function equalValues(controlName1: string, controlName2: string) {
@@ -71,7 +71,7 @@ export class SignupComponent {
     })
   })
 
-  usersInfo: UsersInfo[] = Users;
+  usersInfo: UsersInfo[] = [];
 
   isCreatedNewUser!: Observable<boolean>;
 
@@ -92,10 +92,22 @@ export class SignupComponent {
   minDate = { year: 1900, month: 1, day: 1 };
   maxDate = { year: 2050, month: 1, day: 1 };
 
-  constructor(private location: Location, private router: Router, public userServecie: UserService) {
-    this.isCreatedNewUser = userServecie.isCreatedNewUser();
+  constructor(
+    private location: Location,
+    private router: Router,
+    public userService: UserService, ) {
+    this.isCreatedNewUser = userService.isCreatedNewUser();
   }
 
+  ngOnInit(): void {
+    this.getUsers()
+  }
+
+  getUsers() {
+    this.userService.getUsers().then((users: UsersInfo[]) => {
+      this.usersInfo = users;
+    })
+  }
   /**
    * ngModelChange事件觸發，檢查信箱是否重複
    * @memberof SignupComponent
@@ -124,11 +136,14 @@ export class SignupComponent {
       email: this.form.controls.email.value!,
       password: this.form.controls.passwords.controls.password.value!,
     }
-    Users.push(newUser);
-    console.log(Users);
+    this.usersInfo.push(newUser);
+    console.log(this.usersInfo);
     this.openSignUpModal()
-    this.userServecie.createNewUser();
+    this.userService.createNewUser();
+    this.userService.createUser(newUser);
   }
+
+
 
 
 

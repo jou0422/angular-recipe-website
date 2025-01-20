@@ -4,7 +4,6 @@ import { CommonModule, ViewportScroller  } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { RecipeDetailedComponent } from "../../recipe-detailed/recipe-detailed.component";
 import { RecipeService } from '../../recipe.service';
-import { Recipes } from '../../mock-recipes';
 
 
 
@@ -23,7 +22,7 @@ export class HotRecipesComponent {
   //   this.selectedRecipe = recipe;
   // }
 
-  recipes: RecipeDetail[] = Recipes;
+  recipes: RecipeDetail[] = [];
 
   constructor(
     private recipeService: RecipeService,
@@ -31,6 +30,9 @@ export class HotRecipesComponent {
     private router:Router) {
   }
 
+    ngOnInit(): void {
+    this.getRecipes();
+  }
 
   // 賦值同步
   // getRecipes() : void{
@@ -51,9 +53,7 @@ export class HotRecipesComponent {
     })
   }
 
-  ngOnInit(): void {
-    this.getRecipes();
-  }
+
 
 
   /**

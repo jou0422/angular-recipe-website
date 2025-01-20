@@ -1,11 +1,3 @@
-// export interface RecipeOverview {
-//     id: number;
-//     thumbnail: string;
-//     name: string;
-//     hashtag: string[];
-//     timeMin: number;
-// }
-
 export interface RecipeDetail {
     id: number;
     thumbnail: string;
