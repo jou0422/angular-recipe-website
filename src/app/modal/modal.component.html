@@ -2,14 +2,14 @@
   <div *ngSwitchCase="'login'">
     <!-- login -->
     <div class="modal-header">
-      <img class="modal-logo" src="/assets/pics/icon.png" alt="">
+      <img class="modal-logo" src="assets/pics/icon.png" alt="">
     </div>
     <div class="modal-body text-center">
       <h3>Successfully logged in</h3>
       <h4>Welcome back! {{ username }} </h4>
     </div>
     <div class="modal-footer">
-      <img class="modal-check" src="/assets/pics/check.png" alt="" (click)="onClickBackToHome()"
+      <img class="modal-check" src="assets/pics/check.png" alt="" (click)="onClickBackToHome()"
         type="button">
     </div>
   </div>
@@ -18,14 +18,14 @@
   <div *ngSwitchCase="'loginFailed'">
     <!-- login failed-->
     <div class="modal-header">
-      <img class="modal-logo" src="/assets/pics/icon.png" alt="">
+      <img class="modal-logo" src="assets/pics/icon.png" alt="">
     </div>
     <div class="modal-body text-center">
       <h3 class="modal-warn">Login failed</h3>
       <h4>We didn't recognize the email <br> or password you entered.</h4>
     </div>
     <div class="modal-footer">
-      <img class="modal-check" src="/assets/pics/failed.png" alt="" (click)="activeModal.close('Close click')"
+      <img class="modal-check" src="assets/pics/failed.png" alt="" (click)="activeModal.close('Close click')"
         type="button">
         <!-- (click)="activeModal.close('Close click')" -->
     </div>
@@ -35,14 +35,14 @@
   <div *ngSwitchCase="'forgotPwEmailSend'">
     <!-- forgot password send email -->
     <div class="modal-header">
-      <img class="modal-logo" src="/assets/pics/icon.png" alt="">
+      <img class="modal-logo" src="assets/pics/icon.png" alt="">
     </div>
     <div class="modal-body text-center">
       <h3>Check your email</h3>
       <h4>We have send password recovery instruction <br> to your email.</h4>
     </div>
     <div class="modal-footer">
-      <img class="modal-check" src="/assets/pics/check.png" alt="" (click)="activeModal.close('Close click')"
+      <img class="modal-check" src="assets/pics/check.png" alt="" (click)="activeModal.close('Close click')"
         type="button">
     </div>
   </div>
@@ -50,14 +50,14 @@
   <div *ngSwitchCase="'forgotNotRegister'">
     <!-- forgot password not register -->
     <div class="modal-header">
-      <img class="modal-logo" src="/assets/pics/icon.png" alt="">
+      <img class="modal-logo" src="assets/pics/icon.png" alt="">
     </div>
     <div class="modal-body text-center">
       <h3 class="modal-warn">Failed to recovery</h3>
       <h4>You have not registered yet.</h4>
     </div>
     <div class="modal-footer">
-      <img class="modal-check" src="/assets/pics/failed.png" alt="" (click)="activeModal.close('Close click')"
+      <img class="modal-check" src="assets/pics/failed.png" alt="" (click)="activeModal.close('Close click')"
         type="button">
     </div>
   </div>
@@ -66,14 +66,14 @@
   <div *ngSwitchCase="'about'">
     <!-- about -->
     <div class="modal-header">
-      <img class="modal-logo" src="/assets/pics/icon.png" alt="">
+      <img class="modal-logo" src="assets/pics/icon.png" alt="">
     </div>
     <div class="modal-body text-center">
       <h3>Successfully send</h3>
       <h4>We will get in touch soon!</h4>
     </div>
     <div class="modal-footer">
-      <img class="modal-check" src="/assets/pics/check.png" alt="" (click)="activeModal.close('Close click')"
+      <img class="modal-check" src="assets/pics/check.png" alt="" (click)="activeModal.close('Close click')"
         type="button">
     </div>
   </div>
@@ -81,7 +81,7 @@
   <div *ngSwitchCase="'signUp'">
     <!-- sing up -->
     <div class="modal-header">
-      <img class="modal-logo" src="/assets/pics/icon.png" alt="">
+      <img class="modal-logo" src="assets/pics/icon.png" alt="">
     </div>
     <div class="modal-body text-center">
       <h3>Successfully created</h3>
@@ -96,14 +96,14 @@
   <div *ngSwitchCase="'comment'">
     <!-- detailed - comment -->
     <div class="modal-header">
-      <img class="modal-logo" src="/assets/pics/icon.png" alt="">
+      <img class="modal-logo" src="assets/pics/icon.png" alt="">
     </div>
     <div class="modal-body text-center">
       <h3>Successfully send</h3>
       <h4>The comment submitted!</h4>
     </div>
     <div class="modal-footer">
-      <img class="modal-check" src="/assets/pics/check.png" alt="" (click)="activeModal.close('Close click')"
+      <img class="modal-check" src="assets/pics/check.png" alt="" (click)="activeModal.close('Close click')"
         type="button">
     </div>
   </div>
@@ -112,14 +112,14 @@
   <div *ngSwitchCase="'logOut'">
     <!-- logout -->
     <div class="modal-header">
-      <img class="modal-logo" src="/assets/pics/icon.png" alt="">
+      <img class="modal-logo" src="assets/pics/icon.png" alt="">
     </div>
     <div class="modal-body text-center">
       <h3>Successfully logged out</h3>
       <h4>See ya!</h4>
     </div>
     <div class="modal-footer">
-      <img class="modal-check" src="/assets/pics/check.png" alt="" (click)="activeModal.close('Close click');"
+      <img class="modal-check" src="assets/pics/check.png" alt="" (click)="activeModal.close('Close click');"
         type="button">
     </div>
   </div>
@@ -128,14 +128,14 @@
   <div *ngSwitchCase="'noAccess'">
     <!-- no access -->
     <div class="modal-header">
-      <img class="modal-logo" src="/assets/pics/icon.png" alt="">
+      <img class="modal-logo" src="assets/pics/icon.png" alt="">
     </div>
     <div class="modal-body text-center">
       <h3 class="modal-warn">No access</h3>
       <h4>You already login.</h4>
     </div>
     <div class="modal-footer">
-      <img class="modal-check" src="/assets/pics/failed.png" alt="" (click)="activeModal.close('Close click')"
+      <img class="modal-check" src="assets/pics/failed.png" alt="" (click)="activeModal.close('Close click')"
         type="button">
     </div>
   </div>
@@ -144,7 +144,7 @@
   <div *ngSwitchCase="'needToLogin'">
     <!-- request login -->
     <div class="modal-header">
-      <img class="modal-logo" src="/assets/pics/icon.png" alt="">
+      <img class="modal-logo" src="assets/pics/icon.png" alt="">
     </div>
     <div class="modal-body text-center">
       <h3>Please log in first</h3>
