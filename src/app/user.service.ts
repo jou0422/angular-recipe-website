@@ -14,7 +14,7 @@ export class UserService {
 
   //如果有取得token，表示使用者有登入系統
   private hasTocken(): boolean {
-    return Boolean(localStorage.getItem('isLoginStatus')) ?? false; // ?? >> 當前面的值是 null 返回 false
+    return Boolean(localStorage.getItem('isLoginStatus')) // ?? >> 當前面的值是 null 返回 false
   }
 
   //登入使用者，並通知所有訂閱者

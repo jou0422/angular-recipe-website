@@ -1,13 +1,13 @@
 <div class="row row-cols-xs-1 d-flex align-items-center discover-header">
   <div class="col discover-title">
-    <img src="./assets/pics/search_recipes.png" alt="">
+    <img src="assets/pics/search_recipes.png" alt="">
     <section>
       <h1>"{{recipeService.searchKeyword | async}}"</h1>
       <h2>We have found those for you...</h2>
     </section>
   </div>
   <div class="col discover-img">
-    <img src="./assets/pics/discover.png" alt="">
+    <img src="assets/pics/discover.png" alt="">
   </div>
 </div>
 
@@ -142,7 +142,7 @@
       <h4><ng-container *ngIf="filter.Item === 'types' || filter.Item === 'cuisines'">#</ng-container>
         {{filter.SelectedItem}} <ng-container *ngIf="filter.Item === 'cooktime'"> mins</ng-container>
       </h4>
-      <img class="delete" src="./assets/pics/close.png" alt="" (click)="removeSingleFilter(i)">
+      <img class="delete" src="assets/pics/close.png" alt="" (click)="removeSingleFilter(i)">
     </div>
   </div>
 </ng-container>
