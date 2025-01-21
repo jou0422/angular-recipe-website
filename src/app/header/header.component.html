@@ -51,12 +51,11 @@
             <a class="nav-link" routerLink="/discover">Discover</a>
           </li>
           <li>
-              <form class="d-flex input-group" role="search\">
-                <input class="form-control search" type="text" placeholder="Search Recipes..." aria-label="Search"
-                  name="search" [(ngModel)]="search">
-                <button class="btn bi bi-search" type="submit" routerLink="/search"
-                  (click)="setKeywordValue()"></button>
-              </form>
+            <form class="d-flex input-group" role="search" #searchForm="ngForm">
+              <input class="form-control search" type="text" placeholder="Search Recipes..." aria-label="Search"
+                name="search" [(ngModel)]="search" required>
+              <button class="btn bi bi-search" type="submit" (click)="setKeywordValue();searchForm.reset()" [disabled]="!searchForm.valid"></button>
+            </form>
           </li>
           <li>
             <img class="profile" src="assets/pics/persona1.png" alt="">
