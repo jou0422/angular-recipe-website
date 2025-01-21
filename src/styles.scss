@@ -1339,6 +1339,9 @@ swiper-container{
 
 
 @media (max-width: 393px){
+  .signup-bg{
+    height: fit-content;
+  }
   .signup{
     width: fit-content;
     border-radius: 20px;
