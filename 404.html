@@ -21,7 +21,16 @@
   <title>Yes, Chef</title>
   <base href="/angular-recipe-website/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="assets/favicon.png">
+  <link rel="icon" type="image/x-icon" href="favicon.png">
+  <script>
+    (function(){
+      var redirect = sessionStorage.redirect;
+      delete sessionStorage.redirect;
+      if (redirect && redirect != location.href) {
+        history.replaceState(null, null, redirect);
+      }
+    })();
+  </script>
 <link rel="stylesheet" href="styles-JJBVPSXN.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles-JJBVPSXN.css"></noscript></head>
 
 <body>
