@@ -1,114 +1,160 @@
-<div class="search-header">
-  <section>
-    <h2>"{{recipeService.searchKeyword | async}}"</h2>
-    <h2>We have found those for you...</h2>
-  </section>
+<div class="row row-cols-xs-1 d-flex align-items-center discover-header">
+  <div class="col discover-title">
+    <img src="./assets/pics/search_recipes.png" alt="">
+    <section>
+      <h1>"{{recipeService.searchKeyword | async}}"</h1>
+      <h2>We have found those for you...</h2>
+    </section>
+  </div>
+  <div class="col discover-img">
+    <img src="./assets/pics/discover.png" alt="">
+  </div>
 </div>
 
-<!-- <div class="discover-body ">
-  <div class="fliter">
-    <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        Ingredient
-      </button>
-      <ul class="dropdown-menu">
-        <li class="fliter-header d-flex flex-row"><i class="bi bi-search fliter-srh"></i>
-          <input class="form-control dropdown-item" placeholder="Search ingredients...">
-        </li>
-        <li>
-          <hr class="dropdown-divider">
-        </li>
-        <div class="overflow scrollbar">
-          <li *ngFor="let ingredient of ingredients">
-            <button class="dropdown-item" (click)="onClick('ingredients',ingredient)"
-              [disabled]="checkDuplicate(ingredient)">
-              {{ingredient}}
-            </button>
+<div class="discover-body">
+  <div class="row row-cols-1 row-cols-sm-1 row-cols-md-5 d-flex justify-content-center align-items-center">
+    <div class="col ">
+      <div class="dropdown justify-content-center">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Ingredient
+        </button>
+        <ul class="dropdown-menu">
+          <li class="filter-header d-flex flex-row"><i class="bi bi-search filter-srh"></i>
+            <input class="form-control dropdown-item" placeholder="Search ingredients..."
+            [(ngModel)]="searchIngredient"  (ngModelChange)="searchOption('ingredient')" (blur)="cleanSearch('ingredient')">
           </li>
-        </div>
-      </ul>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <div class="overflow scrollbar">
+            <li *ngFor="let ingredient of ingredients">
+              <button class="dropdown-item" (mousedown)="onClickSelectTag('ingredients',ingredient)"
+                [disabled]="checkDuplicate(ingredient)">
+                {{ingredient}}
+              </button>
+            </li>
+            <ng-container *ngIf="ingredientNoResultsFound">
+              <li>
+                <button class="dropdown-item text-center no-results">No results found.</button>
+              </li>
+            </ng-container>
+          </div>
+        </ul>
+      </div>
     </div>
 
-    <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        Time
-      </button>
-      <ul class="dropdown-menu">
-        <li class="fliter-header d-flex flex-row"><i class="bi bi-search fliter-srh"></i><input
-            class="form-control dropdown-item" placeholder="Search ingredients..."></li>
-        <li>
-          <hr class="dropdown-divider">
-        </li>
-        <div class="overflow scrollbar">
-          <li *ngFor="let time of cooktime">
-            <button class="dropdown-item" (click)="onClick('cooktime',time)" [disabled]="checkDuplicate(time)">
-              {{time}}</button>
+    <div class="col">
+      <div class="dropdown justify-content-center">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Time
+        </button>
+        <ul class="dropdown-menu">
+          <li class="filter-header d-flex flex-row"><i class="bi bi-search filter-srh"></i>
+            <input class="form-control dropdown-item" placeholder="Search time..."
+            [(ngModel)]="searchTime"  (ngModelChange)="searchOption('time')" (blur)="cleanSearch('time')">
           </li>
-        </div>
-      </ul>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <div class="overflow scrollbar">
+            <li *ngFor="let time of cooktime">
+              <button class="dropdown-item" (mousedown)="onClickSelectTag('cooktime',time)"
+                [disabled]="checkDuplicate(time)">
+                {{time}} mins</button>
+            </li>
+            <ng-container *ngIf="timeNoResultsFound">
+              <li>
+                <button class="dropdown-item text-center no-results">No results found.</button>
+              </li>
+            </ng-container>
+          </div>
+        </ul>
+      </div>
     </div>
 
-    <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        #Type
-      </button>
-      <ul class="dropdown-menu">
-        <li class="fliter-header d-flex flex-row"><i class="bi bi-search fliter-srh"></i><input
-            class="form-control dropdown-item" placeholder="Search ingredients..."></li>
-        <li>
-          <hr class="dropdown-divider">
-        </li>
-        <div class="overflow scrollbar">
-          <li *ngFor="let type of types">
-            <button class="dropdown-item" (click)="onClick('types',type)"
-              [disabled]="checkDuplicate(type)">#{{type}}</button>
+    <div class="col">
+      <div class="dropdown justify-content-center">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          #Type
+        </button>
+        <ul class="dropdown-menu">
+          <li class="filter-header d-flex flex-row"><i class="bi bi-search filter-srh"></i>
+            <input class="form-control dropdown-item" placeholder="Search types..."
+            [(ngModel)]="searchType"  (ngModelChange)="searchOption('type')" (blur)="cleanSearch('type')">
           </li>
-        </div>
-      </ul>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <div class="overflow scrollbar">
+            <li *ngFor="let type of types">
+              <button class="dropdown-item" (mousedown)="onClickSelectTag('types',type)"
+                [disabled]="checkDuplicate(type)">#{{type}}</button>
+            </li>
+            <ng-container *ngIf="typeNoResultsFound">
+              <li>
+                <button class="dropdown-item text-center no-results">No results found.</button>
+              </li>
+            </ng-container>
+          </div>
+        </ul>
+      </div>
     </div>
 
-    <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        #Cuisine
-      </button>
-      <ul class="dropdown-menu">
-        <li class="fliter-header d-flex flex-row"><i class="bi bi-search fliter-srh"></i><input
-            class="form-control dropdown-item" placeholder="Search ingredients..."></li>
-        <li>
-          <hr class="dropdown-divider">
-        </li>
-        <div class="overflow scrollbar">
-          <li *ngFor="let cuisine of cuisines">
-            <button class="dropdown-item" (click)="onClick('cuisines',cuisine)"
-              [disabled]="checkDuplicate(cuisine)">#{{cuisine}}</button>
+    <div class="col">
+      <div class="dropdown justify-content-center">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          #Cuisine
+        </button>
+        <ul class="dropdown-menu">
+          <li class="filter-header d-flex flex-row"><i class="bi bi-search filter-srh"></i>
+            <input class="form-control dropdown-item" placeholder="Search cuisines..."
+            [(ngModel)]="searchCuisine"  (ngModelChange)="searchOption('cuisine')" (blur)="cleanSearch('cuisine')">
           </li>
-        </div>
-      </ul>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <div class="overflow scrollbar">
+            <li *ngFor="let cuisine of cuisines">
+              <button class="dropdown-item" (mousedown)="onClickSelectTag('cuisines',cuisine)"
+                [disabled]="checkDuplicate(cuisine)">#{{cuisine}}</button>
+            </li>
+            <ng-container *ngIf="cuisineNoResultsFound">
+              <li>
+                <button class="dropdown-item text-center no-results">No results found.</button>
+              </li>
+            </ng-container>
+          </div>
+        </ul>
+      </div>
     </div>
-    <div class="clear">
-      <button class="btn btn-outline-primary clear" (click)="removeAll()">Clear</button>
+
+    <div class="col d-flex align-items-center justify-content-center">
+      <button class="btn btn-outline-primary clear" (click)="clearAllFilters()">Clear</button>
     </div>
   </div>
 </div>
 
-<-- fliter show -->
-<!-- <ng-container *ngIf="display">
+
+<!-- filter show -->
+<ng-container *ngIf="filterDisplay">
   <div class="filter-show d-flex flex-wrap">
-    <div class="d-flex d-inline-flex flex-row fliter-items" *ngFor="let filter of filters, let i = index">
+    <div class="d-flex d-inline-flex flex-row filter-items" *ngFor="let filter of filters, let i = index">
       <h4><ng-container *ngIf="filter.Item === 'types' || filter.Item === 'cuisines'">#</ng-container>
-        {{filter.SelectedItem}}</h4>
-      <img class="delete" src=".assets/pics/close.png" alt="" (click)="remove(i)">
+        {{filter.SelectedItem}} <ng-container *ngIf="filter.Item === 'cooktime'"> mins</ng-container>
+      </h4>
+      <img class="delete" src="./assets/pics/close.png" alt="" (click)="removeSingleFilter(i)">
     </div>
   </div>
-</ng-container> -->
-<!-- fliter show -->
+</ng-container>
+<!-- filter show -->
 
 
-<!-- <div class="body-div">
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
-    <div class="col" *ngFor="let recipe of recipes">
-      <div class="card shadow" routerLink="/recipe/{{ recipe.id }}">
-        <div class="card-img" style="background-image: url('{{recipe.thumbnail}}');">
+<div class="body-div">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 hot-row">
+    <div class="col" *ngFor="let recipe of filteredRecipes">
+      <div class="card shadow h-100">
+        <div class="card-img" style="background-image: url('{{recipe.thumbnail}}');"
+          routerLink="/recipe/{{ recipe.id }}">
         </div>
         <div class="card-body">
           <div class="d-flex flex-row">
@@ -120,4 +166,21 @@
       </div>
     </div>
   </div>
-</div> -->
+</div>
+
+
+<ng-container *ngIf="noRecipesFound">
+  <div class="no-result d-flex align-items-center justify-content-center text-center">
+    <div class="exclamation">
+      <i class="bi bi-exclamation-circle"></i>
+    </div>
+    <div>
+      <h4>
+        Oops, no recipes found.
+        <br>
+        <br>
+        Let's try again with different filters.
+      </h4>
+    </div>
+  </div>
+</ng-container>

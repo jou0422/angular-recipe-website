@@ -41,7 +41,8 @@ export class HotRecipesComponent {
   getRecipes() : void{
     this.recipeService.getRecipes()
         // .subscribe (recipes => this.recipes = recipes);
-        .subscribe (recipes => this.recipes = recipes.slice (0,4)) // 回傳第1~5個
+        // .subscribe (recipes => this.recipes = recipes.slice (0,4)) // 回傳第1~5個
+        .subscribe (recipes => this.recipes = recipes.sort((a,b) => b.likeQty - a.likeQty).slice(0, 4));
   }
 
   ngOnInit(): void {

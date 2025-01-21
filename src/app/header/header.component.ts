@@ -1,7 +1,7 @@
 import { Component, inject, input } from '@angular/core';
 import { NavigationStart, Router, RouterModule } from '@angular/router';
 import { CommonModule, NgIf } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RecipeService } from '../recipe.service';
 import { UserService } from '../user.service';
 import { Observable } from 'rxjs';
@@ -23,9 +23,10 @@ export class HeaderComponent {
   private modalService = inject(NgbModal);
 
   // 監聽路由變化事件
-  constructor(router: Router,
+  constructor(
+    public router: Router,
     private recipeService: RecipeService,
-    public userService: UserService) {
+    public userService: UserService, ) {
 
     router.events.forEach((event: any) => {
       if (event instanceof NavigationStart) {
@@ -47,6 +48,9 @@ export class HeaderComponent {
   }
 
   public setKeywordValue(): void {
+    this.router.navigate(['search'], {
+      queryParams: { keyword : this.search }
+    })
     this.recipeService.searchKeyword.next(this.search);
   }
 }

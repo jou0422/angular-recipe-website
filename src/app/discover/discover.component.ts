@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, NgModule, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { filterIngredient, filterTime, filterType, filterCuisine, Recipes } from '../mock-recipes';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { RecipeDetail } from '../recipe';
 import { RecipeService } from '../recipe.service';
 import { elementAt, filter } from 'rxjs';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 export interface FilterItem {
   Item: string;
@@ -16,7 +17,7 @@ export interface FilterItem {
 @Component({
   selector: 'app-discover',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterModule, NgFor, NgIf],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule, NgFor, NgIf, NgbDropdownModule, ReactiveFormsModule, FormsModule],
   templateUrl: './discover.component.html',
   styleUrl: './discover.component.scss'
 })
@@ -25,14 +26,20 @@ export class DiscoverComponent {
   cooktime = filterTime;
   types = filterType;
   cuisines = filterCuisine;
-
   filters: FilterItem[] = [];
-
   filterDisplay: boolean = false;
-
   recipes: RecipeDetail[] = Recipes;
-
   noRecipesFound: boolean = false;
+
+  ingredientNoResultsFound: boolean = false;
+  timeNoResultsFound: boolean = false;
+  typeNoResultsFound: boolean = false;
+  cuisineNoResultsFound: boolean = false;
+
+  searchIngredient: string = '';
+  searchTime: string = '';
+  searchType: string = '';
+  searchCuisine: string = '';
 
 
   constructor(
@@ -46,18 +53,88 @@ export class DiscoverComponent {
   }
 
   public ngOnInit(): void {
-    this.getRecipes();
     this.ingredients.sort((a, b) => a.localeCompare(b));
     this.types.sort((a, b) => a.localeCompare(b));
     this.cuisines.sort((a, b) => a.localeCompare(b));
 
     // 從 URL 參數中獲取 tag
+    // this.route.queryParams.subscribe(parama => {
+    //   if (parama['hashtag']) {
+    //     // 自動選擇該 hashtag
+    //     this.selectHashtag(parama['hashtag']);
+    //   }
+    // })
+
     this.route.queryParams.subscribe(parama => {
       if (parama['hashtag']) {
         // 自動選擇該 hashtag
+        // if 條件為必要，如果沒有 if 就會代入空參數，就會沒有食譜顯示
         this.selectHashtag(parama['hashtag']);
       }
     })
+  }
+
+
+  searchOption(option: string) {
+    switch (option) {
+      case 'ingredient':
+        this.ingredients = filterIngredient.filter((res) => res.toLowerCase().includes(this.searchIngredient.toLowerCase()));
+        if (this.ingredients.length === 0) {
+          this.ingredientNoResultsFound = true;
+        } else {
+          this.ingredientNoResultsFound = false;
+        }
+        break;
+      case 'time':
+        this.cooktime = filterTime.filter((res) => res.toString().includes(this.searchTime));
+        if (this.cooktime.length === 0) {
+          this.timeNoResultsFound = true;
+        } else {
+          this.timeNoResultsFound = false;
+        }
+        break;
+      case 'type':
+        this.types = filterType.filter((res) => res.toLowerCase().includes(this.searchType.toLowerCase()));
+        if (this.types.length === 0) {
+          this.typeNoResultsFound = true;
+        } else {
+          this.typeNoResultsFound = false;
+        }
+        break;
+      case 'cuisine':
+        this.cuisines = filterCuisine.filter((res) => res.toLowerCase().includes(this.searchCuisine.toLowerCase()));
+        if (this.cuisines.length === 0) {
+          this.cuisineNoResultsFound = true;
+        } else {
+          this.cuisineNoResultsFound = false;
+        }
+        break;
+    }
+  }
+
+  cleanSearch(option: string): void {
+    switch (option) {
+      case 'ingredient':
+        this.searchIngredient = '';
+        this.ingredients = filterIngredient;
+        this.ingredientNoResultsFound = false;
+        break;
+      case 'time':
+        this.searchTime = '';
+        this.cooktime = filterTime;
+        this.timeNoResultsFound = false;
+        break;
+      case 'type':
+        this.searchType = '';
+        this.types = filterType;
+        this.typeNoResultsFound = false;
+        break;
+      case 'cuisine':
+        this.searchCuisine = '';
+        this.cuisines = filterCuisine;
+        this.cuisineNoResultsFound = false;
+        break;
+    }
   }
 
   public selectHashtag(filter: string) {
@@ -134,5 +211,7 @@ export class DiscoverComponent {
       .subscribe(recipes => this.recipes = recipes);
     // .subscribe(recipes => this.recipes = recipes.slice(0, 5)) // 回傳第1~5個
   }
+
+
 
 }

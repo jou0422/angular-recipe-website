@@ -29,21 +29,6 @@
       </div>
     </div>
   </div>
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 hot-row">
-    <div class="col hot-col" *ngFor="let recipe of recipes">
-      <div class="card shadow h-100">
-        <div class="card-img" style="background-image: url('{{ recipe.thumbnail }}');" routerLink="/recipe/{{ recipe.id }}">
-        </div>
-        <div class="card-body">
-          <div class="d-flex flex-row flex-wrap">
-            <p class="card-text hashtag" *ngFor="let hashtag of recipe.hashtag" (click)="onClickHashtag(hashtag)">#{{ hashtag }}</p>
-          </div>
-          <h4><a routerLink="/recipe/{{ recipe.id }}">{{ recipe.name }}</a></h4>
-          <p class="card-text">{{ recipe.timeMin }} mins</p>
-        </div>
-      </div>
-    </div>
-  </div>
   <div class="d-flex justify-content-center">
     <button class="btn btn-outline-primary" type="submit" routerLink="/discover">View More</button>
   </div>
