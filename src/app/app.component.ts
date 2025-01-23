@@ -18,23 +18,29 @@ import { UserService } from './user.service';
   imports: [CommonModule, RouterOutlet, HeaderComponent, RecipesComponent, HotRecipesComponent, RecipesListComponent, FooterComponent, AboutComponent, RouterModule, LoginComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  schemas:[CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
 })
 export class AppComponent {
   title = 'my-recipe';
 
-  constructor(private userService: UserService, private scroller : ViewportScroller){
-    this.scroller.setOffset([0,120])
+  constructor(private userService: UserService, private scroller: ViewportScroller) {
+    this.scroller.setOffset([0, 120])
   }
 
   ngOnInit(): void {
     const localStorageKey = localStorage.getItem('isLoginStatus');
-    if(localStorageKey === 'true'){
+    if (localStorageKey === 'true') {
       this.userService.changeToLoginStatus();
     } else {
       this.userService.changeToLogoutStatus();
     }
   }
+
+
+
+
+
 }
 
 

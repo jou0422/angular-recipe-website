@@ -26,7 +26,7 @@ export class HeaderComponent {
   constructor(
     public router: Router,
     private recipeService: RecipeService,
-    public userService: UserService, ) {
+    public userService: UserService,) {
 
     router.events.forEach((event: any) => {
       if (event instanceof NavigationStart) {
@@ -41,16 +41,17 @@ export class HeaderComponent {
     this.isLoggedIn = userService.isLoggedIn();
   }
 
-  onClickLogout():void{
+  onClickLogout(): void {
     this.userService.changeToLogoutStatus();
-    const modalRef = this.modalService.open(ModalComponent, { centered: true});
+    const modalRef = this.modalService.open(ModalComponent, { centered: true });
     modalRef.componentInstance.modalType = 'logOut';
   }
 
   public setKeywordValue(): void {
     this.router.navigate(['search'], {
-      queryParams: { keyword : this.search }
+      queryParams: { keyword: this.search }
     })
     this.recipeService.searchKeyword.next(this.search);
   }
+
 }

@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
   standalone: true,
   imports: [RouterModule, ReactiveFormsModule, NgClass, NgIf, ForgotpasswordComponent],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
 })
 
 export class LoginComponent {
@@ -36,9 +36,11 @@ export class LoginComponent {
 
   isLoggedIn!: Observable<boolean>;
 
-
-  constructor(private location: Location, public userService: UserService, private router: Router) {
-    this.isLoggedIn = userService.isLoggedIn();
+  constructor(
+    private location: Location,
+    public userService: UserService,
+    private router: Router,
+  ) {
   }
 
   openLoginModal(persona: string) {
@@ -49,8 +51,6 @@ export class LoginComponent {
 
     this.userService.changeToLoginStatus();
   }
-
-
 
   openLoginFailednModal() {
     const modalRef = this.modalService.open(ModalComponent, { centered: true, backdrop: 'static' });
@@ -103,7 +103,5 @@ export class LoginComponent {
   onClickBackToHome() {
     this.router.navigate(['home']);
   }
-
-
 }
 

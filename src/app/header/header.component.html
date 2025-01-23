@@ -1,30 +1,31 @@
 <ng-container *ngIf="showHeader && !(isLoggedIn | async)">
   <nav class="navbar navbar-expand-lg sticky-top shadow">
     <div class="container-fluid">
-      <a class="logo" routerLink="/home">
+      <a class="logo navbar-brand active" routerLink="/home" aria-current="page">
         <img src="assets/pics/logo.png" alt="Yes, Chef">
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li>
-            <a class="nav-link" routerLink="/about">About</a>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/about">About</a>
           </li>
-          <li>
-            <a class="nav-link" routerLink="/discover">Discover</a>
+          <li class="nav-item">
+            <a class="nav-link" href="/discover">Discover</a>
           </li>
-          <li>
+          <li class="nav-item">
             <form class="d-flex input-group" role="search" #searchForm="ngForm">
               <input class="form-control search" type="text" placeholder="Search Recipes..." aria-label="Search"
                 name="search" [(ngModel)]="search" required>
-              <button class="btn bi bi-search" type="submit" (click)="setKeywordValue();searchForm.reset()" [disabled]="!searchForm.valid"></button>
+              <button class="btn bi bi-search" type="submit" (click)="setKeywordValue();searchForm.reset()"
+                [disabled]="!searchForm.valid"></button>
             </form>
           </li>
-          <li>
-            <button class="btn nav-btn" routerLink="/login">Log in / Sign Up</button>
+          <li class="nav-item">
+            <button class="btn nav-btn nav-link" routerLink="/login">Log in / Sign Up</button>
           </li>
         </ul>
       </div>
@@ -33,28 +34,29 @@
 </ng-container>
 
 <ng-container *ngIf="showHeader && (isLoggedIn | async)">
-  <nav class="navbar navbar-expand-lg">
+  <nav class="navbar navbar-expand-lg sticky-top shadow">
     <div class="container-fluid">
-      <a class="logo" routerLink="/home">
+      <a class="logo navbar-brand active" routerLink="/home" aria-current="page">
         <img src="assets/pics/logo.png" alt="Yes, Chef">
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li>
-            <a class="nav-link" routerLink="/about">About</a>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/about">About</a>
           </li>
-          <li>
-            <a class="nav-link" routerLink="/discover">Discover</a>
+          <li class="nav-item">
+            <a class="nav-link" href="/discover">Discover</a>
           </li>
-          <li>
+          <li class="nav-item">
             <form class="d-flex input-group" role="search" #searchForm="ngForm">
               <input class="form-control search" type="text" placeholder="Search Recipes..." aria-label="Search"
                 name="search" [(ngModel)]="search" required>
-              <button class="btn bi bi-search" type="submit" (click)="setKeywordValue();searchForm.reset()" [disabled]="!searchForm.valid"></button>
+              <button class="btn bi bi-search" type="submit" (click)="setKeywordValue();searchForm.reset()"
+                [disabled]="!searchForm.valid"></button>
             </form>
           </li>
           <li>
