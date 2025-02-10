@@ -20,8 +20,12 @@ export class AboutComponent {
   screenWidth!: number;
   profileForm: any;
 
+  ngAfterViewInit(): void {
+    this.getScreenWidth();
+  }
+
   @HostListener('window:resize')
-  getScreenWudth(){
+  getScreenWidth(){
     this.screenWidth = window.innerWidth;
     if(this.screenWidth > 768){
       this.slidesPerView = 4;

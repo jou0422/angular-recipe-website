@@ -60,6 +60,10 @@ export class RecipeDetailedComponent {
     })
   }
 
+  ngAfterViewInit(): void {
+    this.getScreenWidth();
+  }
+
     /**
    * 點選食譜跑出相對食譜 detailed
    */
@@ -72,7 +76,7 @@ export class RecipeDetailedComponent {
   }
 
   @HostListener('window:resize')
-  getScreenWudth() {
+  getScreenWidth() {
     this.screenWidth = window.innerWidth;
     if (this.screenWidth > 992) {
       this.slidesPerView = 4;

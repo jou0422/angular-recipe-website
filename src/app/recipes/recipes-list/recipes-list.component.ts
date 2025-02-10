@@ -25,10 +25,18 @@ export class RecipesListComponent {
   screenWidth!: number;
   filter!: string;
 
-  constructor( private router:Router){}
+  constructor(private router:Router){
+  }
 
+  ngAfterViewInit(): void {
+    this.getScreenWidth();
+  }
+
+  /**
+   * 在想要執行的function前面加上 @HostListener('window:resize')，當視窗大小改變時，就會執行這個function
+   */
   @HostListener('window:resize')
-  getScreenWudth(){
+  getScreenWidth(){
     this.screenWidth = window.innerWidth;
     if(this.screenWidth > 992){
       this.slidesPerView = 4;
