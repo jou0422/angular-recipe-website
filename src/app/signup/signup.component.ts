@@ -75,6 +75,13 @@ export class SignupComponent {
 
   isCreatedNewUser!: Observable<boolean>;
 
+  minDate = { year: 1900, month: 1, day: 1 };
+  maxDate = { year: 2050, month: 1, day: 1 };
+
+  constructor(private location: Location, private router: Router, public userServecie: UserService) {
+    this.isCreatedNewUser = userServecie.isCreatedNewUser();
+  }
+
   get emailInvalid(): boolean {
     return (
       this.form.controls.email.touched &&
@@ -87,13 +94,6 @@ export class SignupComponent {
       this.form.controls.passwords.touched &&
       this.form.controls.passwords.dirty &&
       this.form.controls.passwords.invalid);
-  }
-
-  minDate = { year: 1900, month: 1, day: 1 };
-  maxDate = { year: 2050, month: 1, day: 1 };
-
-  constructor(private location: Location, private router: Router, public userServecie: UserService) {
-    this.isCreatedNewUser = userServecie.isCreatedNewUser();
   }
 
   /**

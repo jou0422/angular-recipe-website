@@ -8,7 +8,7 @@ import { UserService } from '../user.service';
 @Component({
   selector: 'app-modal',
   standalone: true,
-  imports: [NgSwitch, NgSwitchCase, NgSwitchDefault, RouterModule,],
+  imports: [NgSwitch, NgSwitchCase, RouterModule,],
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.scss'
 })

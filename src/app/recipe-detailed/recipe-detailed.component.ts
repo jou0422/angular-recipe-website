@@ -64,7 +64,7 @@ export class RecipeDetailedComponent {
     this.getScreenWidth();
   }
 
-    /**
+  /**
    * 點選食譜跑出相對食譜 detailed
    */
   // 還要在 sevice 裡新增 getRecipes() 的方法
@@ -74,6 +74,7 @@ export class RecipeDetailedComponent {
       .subscribe(res => this.recipe = res);
     this.otherRecipes = this.recipes.filter((res) => res.id !== id)
   }
+
 
   @HostListener('window:resize')
   getScreenWidth() {

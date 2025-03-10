@@ -59,13 +59,6 @@ export class SearchComponent {
     this.cuisines.sort((a, b) => a.localeCompare(b));
 
     // 從 URL 參數中獲取 tag
-    // this.route.queryParams.subscribe(parama => {
-    //   if (parama['hashtag']) {
-    //     // 自動選擇該 hashtag
-    //     this.selectHashtag(parama['hashtag']);
-    //   }
-    // })
-
     this.route.queryParams.subscribe(parama => {
       if (parama['hashtag']) {
         // 自動選擇該 hashtag
@@ -89,6 +82,9 @@ export class SearchComponent {
     }
   }
 
+  /**
+   * 檢查 search text 有沒有存在在現有的選項中
+   */
   searchOption(option: string) {
     switch (option) {
       case 'ingredient':
@@ -151,6 +147,9 @@ export class SearchComponent {
     }
   }
 
+  /**
+   * 選擇 hashtag 並加入 filter
+   */
   public selectHashtag(filter: string) {
     this.onClickSelectTag('types', filter)
   }

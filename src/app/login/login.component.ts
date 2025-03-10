@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterModule, ReactiveFormsModule, NgClass, NgIf, ForgotpasswordComponent],
+  imports: [RouterModule, ReactiveFormsModule, NgClass],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })

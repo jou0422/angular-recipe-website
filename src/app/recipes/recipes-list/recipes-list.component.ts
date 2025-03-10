@@ -24,6 +24,7 @@ export class RecipesListComponent {
   spaceBetween = 33;
   screenWidth!: number;
   filter!: string;
+  showCarousel = true;
 
   constructor(private router:Router){
   }
@@ -52,7 +53,7 @@ export class RecipesListComponent {
     }
   }
 
-  showCarousel = true;
+
 
   onClickHashtag(filter:string){
     this.router.navigate(['discover'], {

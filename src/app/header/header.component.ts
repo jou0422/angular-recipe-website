@@ -22,7 +22,6 @@ export class HeaderComponent {
   isLoggedIn!: Observable<boolean>;
   private modalService = inject(NgbModal);
 
-  // 監聽路由變化事件
   constructor(
     public router: Router,
     private recipeService: RecipeService,

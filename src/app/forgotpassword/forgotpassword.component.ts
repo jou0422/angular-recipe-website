@@ -39,9 +39,11 @@ export class ForgotpasswordComponent {
     this.form.reset();
   }
 
+  /**
+   * 判斷 email 註冊過了沒
+   */
   onClickCheckRegister() {
     const emailInput: string = this.form.controls.email.value!;
-
     if (this.usersInfo.find((res) => res.email.includes(emailInput))) {
       this.openEmailSendModal()
     } else {
@@ -58,7 +60,6 @@ export class ForgotpasswordComponent {
   }
 
   onSubmit() {
-
   }
 
   goBack() {

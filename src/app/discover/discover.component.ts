@@ -58,13 +58,6 @@ export class DiscoverComponent {
     this.cuisines.sort((a, b) => a.localeCompare(b));
 
     // 從 URL 參數中獲取 tag
-    // this.route.queryParams.subscribe(parama => {
-    //   if (parama['hashtag']) {
-    //     // 自動選擇該 hashtag
-    //     this.selectHashtag(parama['hashtag']);
-    //   }
-    // })
-
     this.route.queryParams.subscribe(parama => {
       if (parama['hashtag']) {
         // 自動選擇該 hashtag
@@ -72,6 +65,13 @@ export class DiscoverComponent {
         this.selectHashtag(parama['hashtag']);
       }
     })
+  }
+
+  /**
+   * 在其他頁面傳入 hashtag 參數，自動選擇該 hashtag
+   */
+  public selectHashtag(filter: string) {
+    this.onClickSelectTag('types', filter)
   }
 
 
@@ -112,6 +112,9 @@ export class DiscoverComponent {
     }
   }
 
+  /**
+   * 清除個別選項並重新執行搜尋結果
+   */
   cleanSearch(option: string): void {
     switch (option) {
       case 'ingredient':
@@ -137,10 +140,10 @@ export class DiscoverComponent {
     }
   }
 
-  public selectHashtag(filter: string) {
-    this.onClickSelectTag('types', filter)
-  }
 
+  /**
+   * 在下拉式選單中選擇 tag，並將選擇的 tag 加入 filters 陣列中
+   */
   public onClickSelectTag(type: string, selectedItem: string): void {
     // let result: string = '';
     // if (type === 'types' || type === 'cuisines') {

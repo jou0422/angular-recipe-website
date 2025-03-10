@@ -30,6 +30,10 @@ export class HotRecipesComponent {
   private router:Router) {
   }
 
+  ngOnInit(): void {
+    this.getRecipes();
+  }
+
 
   // 賦值同步
   // getRecipes() : void{
@@ -43,10 +47,6 @@ export class HotRecipesComponent {
         // .subscribe (recipes => this.recipes = recipes);
         // .subscribe (recipes => this.recipes = recipes.slice (0,4)) // 回傳第1~5個
         .subscribe (recipes => this.recipes = recipes.sort((a,b) => b.likeQty - a.likeQty).slice(0, 4));
-  }
-
-  ngOnInit(): void {
-    this.getRecipes();
   }
 
 
