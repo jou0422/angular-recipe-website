@@ -24,11 +24,10 @@ function equalValues(controlName1: string, controlName2: string) {
 
 
 @Component({
-  selector: 'app-signup',
-  standalone: true,
-  imports: [RouterModule, ReactiveFormsModule, NgbDatepickerModule, NgbAlertModule, FormsModule, NgClass],
-  templateUrl: './signup.component.html',
-  styleUrl: './signup.component.scss'
+    selector: 'app-signup',
+    imports: [RouterModule, ReactiveFormsModule, NgbDatepickerModule, NgbAlertModule, FormsModule, NgClass],
+    templateUrl: './signup.component.html',
+    styleUrl: './signup.component.scss'
 })
 export class SignupComponent {
   private modalService: NgbModal = inject(NgbModal);

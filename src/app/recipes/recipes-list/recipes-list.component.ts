@@ -5,12 +5,11 @@ import { Router, RouterModule } from '@angular/router';
 
 
 @Component({
-  selector: 'app-recipes-list',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './recipes-list.component.html',
-  styleUrl: './recipes-list.component.scss',
-  schemas:[CUSTOM_ELEMENTS_SCHEMA]
+    selector: 'app-recipes-list',
+    imports: [CommonModule, RouterModule],
+    templateUrl: './recipes-list.component.html',
+    styleUrl: './recipes-list.component.scss',
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 
 

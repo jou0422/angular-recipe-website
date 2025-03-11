@@ -9,11 +9,10 @@ import { UserService } from '../user.service';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [RouterModule, ReactiveFormsModule, NgClass],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+    selector: 'app-login',
+    imports: [RouterModule, ReactiveFormsModule, NgClass],
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.scss'
 })
 
 export class LoginComponent {

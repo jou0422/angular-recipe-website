@@ -6,12 +6,11 @@ import { ModalComponent } from '../modal/modal.component';
 
 
 @Component({
-  selector: 'app-about',
-  standalone: true,
-  imports: [ReactiveFormsModule],
-  templateUrl: './about.component.html',
-  styleUrl: './about.component.scss',
-  schemas:[CUSTOM_ELEMENTS_SCHEMA],
+    selector: 'app-about',
+    imports: [ReactiveFormsModule],
+    templateUrl: './about.component.html',
+    styleUrl: './about.component.scss',
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AboutComponent {
 

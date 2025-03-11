@@ -13,12 +13,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './user.service';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet, HeaderComponent, RecipesComponent, HotRecipesComponent, RecipesListComponent, FooterComponent, AboutComponent, RouterModule, LoginComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
-  schemas:[CUSTOM_ELEMENTS_SCHEMA],
+    selector: 'app-root',
+    imports: [CommonModule, RouterOutlet, HeaderComponent, RecipesComponent, HotRecipesComponent, RecipesListComponent, FooterComponent, AboutComponent, RouterModule, LoginComponent],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss',
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppComponent {
   title = 'my-recipe';

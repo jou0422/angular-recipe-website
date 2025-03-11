@@ -11,12 +11,11 @@ import { UserService } from '../user.service';
 import { SwiperModule } from 'swiper/types';
 
 @Component({
-  selector: 'app-recipe-detailed',
-  standalone: true,
-  imports: [RouterModule, NgIf, CommonModule, NgFor, ReactiveFormsModule],
-  templateUrl: './recipe-detailed.component.html',
-  styleUrl: './recipe-detailed.component.scss',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    selector: 'app-recipe-detailed',
+    imports: [RouterModule, NgIf, CommonModule, NgFor, ReactiveFormsModule],
+    templateUrl: './recipe-detailed.component.html',
+    styleUrl: './recipe-detailed.component.scss',
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class RecipeDetailedComponent {
 

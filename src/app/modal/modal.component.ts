@@ -6,11 +6,10 @@ import { Observable } from 'rxjs';
 import { UserService } from '../user.service';
 
 @Component({
-  selector: 'app-modal',
-  standalone: true,
-  imports: [NgSwitch, NgSwitchCase, NgSwitchDefault, RouterModule,],
-  templateUrl: './modal.component.html',
-  styleUrl: './modal.component.scss'
+    selector: 'app-modal',
+    imports: [NgSwitch, NgSwitchCase, NgSwitchDefault, RouterModule,],
+    templateUrl: './modal.component.html',
+    styleUrl: './modal.component.scss'
 })
 export class ModalComponent {
   @Input() username: string = '';

@@ -7,11 +7,10 @@ import { ModalComponent } from '../modal/modal.component';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-forgotpassword',
-  standalone: true,
-  imports: [ReactiveFormsModule, RouterModule],
-  templateUrl: './forgotpassword.component.html',
-  styleUrl: './forgotpassword.component.scss'
+    selector: 'app-forgotpassword',
+    imports: [ReactiveFormsModule, RouterModule],
+    templateUrl: './forgotpassword.component.html',
+    styleUrl: './forgotpassword.component.scss'
 })
 export class ForgotpasswordComponent {
 

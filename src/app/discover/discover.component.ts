@@ -15,11 +15,10 @@ export interface FilterItem {
 
 
 @Component({
-  selector: 'app-discover',
-  standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterModule, NgFor, NgIf, NgbDropdownModule, ReactiveFormsModule, FormsModule],
-  templateUrl: './discover.component.html',
-  styleUrl: './discover.component.scss'
+    selector: 'app-discover',
+    imports: [ReactiveFormsModule, CommonModule, RouterModule, NgFor, NgIf, NgbDropdownModule, ReactiveFormsModule, FormsModule],
+    templateUrl: './discover.component.html',
+    styleUrl: './discover.component.scss'
 })
 export class DiscoverComponent {
   ingredients = filterIngredient;

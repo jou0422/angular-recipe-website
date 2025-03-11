@@ -8,11 +8,10 @@ import { RecipeService } from '../../recipe.service';
 
 
 @Component({
-  selector: 'app-hot-recipes',
-  standalone: true,
-  imports: [RouterModule, CommonModule],
-  templateUrl: './hot-recipes.component.html',
-  styleUrl: './hot-recipes.component.scss'
+    selector: 'app-hot-recipes',
+    imports: [RouterModule, CommonModule],
+    templateUrl: './hot-recipes.component.html',
+    styleUrl: './hot-recipes.component.scss'
 })
 export class HotRecipesComponent {
   // recipes = Recipes;

@@ -9,11 +9,10 @@ import { filterCuisine, filterIngredient, filterTime, filterType, Recipes } from
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-search',
-  standalone: true,
-  imports: [AsyncPipe, ReactiveFormsModule, CommonModule, RouterModule, NgFor, NgIf, FormsModule],
-  templateUrl: './search.component.html',
-  styleUrl: './search.component.scss'
+    selector: 'app-search',
+    imports: [AsyncPipe, ReactiveFormsModule, CommonModule, RouterModule, NgFor, NgIf, FormsModule],
+    templateUrl: './search.component.html',
+    styleUrl: './search.component.scss'
 })
 export class SearchComponent {
 

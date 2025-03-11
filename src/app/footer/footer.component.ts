@@ -3,11 +3,10 @@ import { NavigationStart, Router, RouterModule } from '@angular/router';
 import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-footer',
-  standalone: true,
-  imports: [RouterModule, NgIf,],
-  templateUrl: './footer.component.html',
-  styleUrl: './footer.component.scss'
+    selector: 'app-footer',
+    imports: [RouterModule, NgIf,],
+    templateUrl: './footer.component.html',
+    styleUrl: './footer.component.scss'
 })
 
 export class FooterComponent {
