@@ -14,7 +14,7 @@ import { UserService } from './user.service';
 
 @Component({
     selector: 'app-root',
-    imports: [CommonModule, RouterOutlet, HeaderComponent, RecipesComponent, HotRecipesComponent, RecipesListComponent, FooterComponent, AboutComponent, RouterModule, LoginComponent],
+    imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent, RouterModule],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
