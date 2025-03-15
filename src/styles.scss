@@ -2020,3 +2020,19 @@ margin-bottom: 3%;
     font-weight: 500;
   }
 }
+
+.no-results{
+  &:hover{
+    background-color: transparent;
+    cursor: default;
+  }
+}
+
+.exclamation{
+  margin-bottom: 1%;
+}
+
+.bi-exclamation-circle{
+  font-size: 35px;
+  color: #102C57;
+}

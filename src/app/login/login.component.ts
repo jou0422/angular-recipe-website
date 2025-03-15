@@ -1,5 +1,5 @@
 import { UsersInfo } from './../user';
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -7,6 +7,7 @@ import { Location, NgClass, NgIf } from '@angular/common';
 import { ModalComponent } from '../modal/modal.component';
 import { UserService } from '../user.service';
 import { Observable } from 'rxjs';
+import { GoogleAuthService } from '../google-auth.service';
 
 @Component({
     selector: 'app-login',
@@ -32,21 +33,20 @@ export class LoginComponent {
 
   usersInfo: UsersInfo[] = [];
 
-
-
   isLoggedIn!: Observable<boolean>;
 
 
   constructor(
     private location: Location,
     public userService: UserService,
+    private googleAuthService: GoogleAuthService,
     private router: Router) {
     this.isLoggedIn = userService.isLoggedIn();
     this.getUsers();
   }
 
-  ngOnInit(): void {
-    this.getUsers()
+  ngOnInit() {
+
   }
 
   getUsers() {
@@ -55,6 +55,10 @@ export class LoginComponent {
     })
   }
 
+
+  onPromptLogin(): void {
+    this.googleAuthService.promptLogin();
+  }
 
   openLoginModal(persona: string) {
     const modalRef = this.modalService.open(ModalComponent, { centered: true, backdrop: 'static' });
@@ -100,14 +104,6 @@ export class LoginComponent {
       this.form.controls.password.touched &&
       this.form.controls.password.dirty &&
       this.form.controls.password.invalid);
-  }
-
-
-
-  onSubmit() {
-    const enteredEmail = this.form.value.email;
-    const enteredPassowrd = this.form.value.password;
-    console.log(enteredEmail, enteredPassowrd);
   }
 
 

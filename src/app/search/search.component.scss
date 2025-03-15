@@ -54,25 +54,14 @@ cursor: pointer;
   }
 }
 
-.bi-exclamation-circle{
-  font-size: 35px;
-  color: #102C57;
-}
 
-.exclamation{
-  margin-bottom: 1%;
-}
+
 
 .dropdown-menu{
   --bs-dropdown-link-active-color:#D0B8A8;
 }
 
-.no-results{
-  &:hover{
-    background-color: transparent;
-    cursor: default;
-  }
-}
+
 
 
 @media (max-width: 393px) {

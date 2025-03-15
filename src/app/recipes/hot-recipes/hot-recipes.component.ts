@@ -22,6 +22,7 @@ export class HotRecipesComponent {
   // }
 
   recipes: RecipeDetail[] = [];
+  noRecipesfound: boolean = false;
 
   constructor(
     private recipeService: RecipeService,
@@ -47,9 +48,14 @@ export class HotRecipesComponent {
   // }
 
   getRecipes() : void{
-    this.recipeService.getRecipes().then((recipes: RecipeDetail[]) => {
+    this.recipeService.getRecipes()
+    .then((recipes: RecipeDetail[]) => {
       this.recipes = recipes.sort((a,b) => b.likeQty - a.likeQty).slice(0, 4);
     })
+    .catch((error) => {
+      console.error('Failed to fetch recipes', error);
+      this.noRecipesfound = true;
+    });
   }
 
 

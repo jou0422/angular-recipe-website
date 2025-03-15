@@ -10,7 +10,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 })
 export class RecipeService {
   public searchKeyword: BehaviorSubject<string> = new BehaviorSubject('');
-  url = 'http://localhost:3000/recipe';
+  url = '/api/recipe';
 
   constructor() { }
 
@@ -20,8 +20,18 @@ export class RecipeService {
   // }
 
   async getRecipes(): Promise<RecipeDetail[]> {
-    const recipes = await fetch(this.url);
-    return (await recipes.json()) ?? [];
+    // const recipes = await fetch(this.url);
+    // return (await recipes.json()) ?? []; // 確保即使 API 回傳了空資料或錯誤資料，函數也會運行，不會拋出錯誤
+    const response = await fetch(this.url);
+    const recipes =  await response.json();
+
+    if(!response.ok){
+      throw new Error(response.statusText || 'Failed to fetch recipes');
+    }
+    if (!recipes || !Array.isArray(recipes)) {
+      throw new Error('Invalid response');
+    }
+    return recipes;
   }
 
 
@@ -32,8 +42,18 @@ export class RecipeService {
   // }
 
   async getRecipe(id: number): Promise<RecipeDetail> {
-    const recipe = await fetch(`${this.url}/${id}`);
-    return (await recipe.json()) ?? {};
+    // const recipe = await fetch(`${this.url}/${id}`);
+    // return (await recipe.json()) ?? {};
+    const response = await fetch(`${this.url}/${id}`);
+    const recipe =  await response.json();
+
+    if(!response.ok){
+      throw new Error(response.statusText || 'Failed to fetch recipe id: ${id}');
+    }
+    if (!recipe) {
+      throw new Error('Invalid response');
+    }
+    return recipe;
   }
 
 

@@ -1,6 +1,6 @@
 <div class="login-bg">
   <div class="login">
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <form [formGroup]="form">
       <!-- <div class="row"> -->
       <div class="d-flex justify-content-end">
         <img class="close" src="assets/pics/close.png" alt="" (click)="onClickBackToHome()">
@@ -45,8 +45,11 @@
         Log In
       </button>
       <p class="or">or</p>
-      <button class="btn btn-outline-primary google-btn" type="submit"><img class="google" src="assets/pics/google.png"
-          alt="">Sign in with Google</button>
+      <div #googleSignIn></div>
+      <button id="google-signin-button" class="btn btn-outline-primary google-btn" type="submit" (click)="onPromptLogin()">
+        <img class="google" src="assets/pics/google.png"alt="">
+        Sign in with Google
+      </button>
       <div class="d-flex align-items login-su">
         <p class="grey">Don't have an account?</p>
         <p class="sign"><a routerLink="/signup">Sign Up</a></p>

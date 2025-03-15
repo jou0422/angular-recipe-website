@@ -74,9 +74,13 @@ export class RecipeDetailedComponent {
 
   getRecipe(): void {
     const id = Number(this.route.snapshot.params['id']);
-    this.recipeService.getRecipe(id).then((recipe) => {
+    this.recipeService.getRecipe(id)
+    .then((recipe) => {
       this.recipe = recipe;
       this.otherRecipes = this.recipes.filter((res) => res.id !== id)
+    })
+    .catch((error) => {
+      console.error('recipe not found', error);
     });
   }
 
