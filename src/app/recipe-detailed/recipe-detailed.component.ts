@@ -30,6 +30,7 @@ export class RecipeDetailedComponent {
   recipe!: RecipeDetail;
   recipes: RecipeDetail[] = [];
   otherRecipes: RecipeDetail[] = [];
+  noRecipefound: boolean = true;
 
   slidesPerView: number = 4;
   spaceBetween = 33;
