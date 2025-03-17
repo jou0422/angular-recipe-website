@@ -7,13 +7,13 @@ import { Location, NgClass, NgIf } from '@angular/common';
 import { ModalComponent } from '../modal/modal.component';
 import { UserService } from '../user.service';
 import { Observable } from 'rxjs';
-import { GoogleAuthService } from '../google-auth.service';
+
 
 @Component({
-    selector: 'app-login',
-    imports: [RouterModule, ReactiveFormsModule, NgClass],
-    templateUrl: './login.component.html',
-    styleUrl: './login.component.scss'
+  selector: 'app-login',
+  imports: [RouterModule, ReactiveFormsModule, NgClass],
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.scss'
 })
 
 export class LoginComponent {
@@ -39,57 +39,63 @@ export class LoginComponent {
   constructor(
     private location: Location,
     public userService: UserService,
-    private googleAuthService: GoogleAuthService,
     private router: Router) {
     this.isLoggedIn = userService.isLoggedIn();
-    this.getUsers();
   }
+
 
   ngOnInit() {
-
   }
 
-  getUsers() {
-    this.userService.getUsers().then((users: UsersInfo[]) => {
-      this.usersInfo = users;
-    })
-  }
+  // onSignIn() {
+  //   this.googleAuthService.signIn().then((googleUser: any) => {
+  //     console.log(googleUser);
+  //     this.userProfile = this.googleAuthService.getUserProfile();
+  //   });
+  // }
 
 
-  onPromptLogin(): void {
-    this.googleAuthService.promptLogin();
-  }
-
-  openLoginModal(persona: string) {
-    const modalRef = this.modalService.open(ModalComponent, { centered: true, backdrop: 'static' });
-    modalRef.componentInstance.username = persona;
-    modalRef.componentInstance.modalType = 'login';
-    this.form.reset();
-
-    this.userService.changeToLoginStatus();
-  }
-
-
-
-  openLoginFailednModal() {
-    const modalRef = this.modalService.open(ModalComponent, { centered: true, backdrop: 'static' });
-    modalRef.componentInstance.modalType = 'loginFailed';
-    this.form.controls.password.reset();
-  }
-
+  /**
+   * 驗證登入者身分
+   */
   onClickLoginBtn() {
     const inputEmail: string = this.form.controls.email.value!;
     const inputPassword: string = this.form.controls.password.value!;
-    const userLogin = this.usersInfo.find((res) => res.email === inputEmail && res.password === inputPassword);
-    console.log(userLogin); // 有找到 物件 | 沒找到 undefined
-    if (userLogin) {
-      this.openLoginModal(userLogin.username);
-      this.userService.userName = userLogin.username;
-    } else {
-      this.openLoginFailednModal();
-    }
+    // const userLogin = this.usersInfo.find((res) => res.email === inputEmail && res.password === inputPassword);
+    // console.log(userLogin); // 有找到 物件 | 沒找到 undefined
+    this.userService.loginSuccess(inputEmail, inputPassword)
+      .then((usersInfo:{ username:string }) => {
+        if (usersInfo.username !== '') {
+          this.openLoginModal(usersInfo.username);
+          this.userService.userName = usersInfo.username;
+        }
+        else {
+          this.openLoginFailednModal();
+        }
+      }
+      )
   }
 
+    /**
+   * 跳出登入成功提示
+   */
+    openLoginModal(persona: string) {
+      const modalRef = this.modalService.open(ModalComponent, { centered: true, backdrop: 'static' });
+      modalRef.componentInstance.username = persona;
+      modalRef.componentInstance.modalType = 'login';
+      this.form.reset();
+      this.userService.changeToLoginStatus();
+    }
+
+
+    /**
+     * 跳出登入失敗提示
+     */
+    openLoginFailednModal() {
+      const modalRef = this.modalService.open(ModalComponent, { centered: true, backdrop: 'static' });
+      modalRef.componentInstance.modalType = 'loginFailed';
+      this.form.controls.password.reset();
+    }
 
 
   get emailisinvalid(): boolean {
@@ -114,7 +120,6 @@ export class LoginComponent {
   onClickBackToHome() {
     this.router.navigate(['home']);
   }
-
 
 }
 

@@ -1,3 +1,4 @@
+// 定義一個介面來描述 recipes 的結構
 export interface RecipeDetail {
     id: number;
     thumbnail: string;

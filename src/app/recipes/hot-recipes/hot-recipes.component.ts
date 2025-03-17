@@ -14,13 +14,6 @@ import { RecipeService } from '../../recipe.service';
     styleUrl: './hot-recipes.component.scss'
 })
 export class HotRecipesComponent {
-  // recipes = Recipes;
-  // selectedRecipe?: RecipeDetail;
-
-  // onSelect(recipe: RecipeDetail): void {
-  //   this.selectedRecipe = recipe;
-  // }
-
   recipes: RecipeDetail[] = [];
   noRecipesfound: boolean = false;
 
@@ -34,18 +27,15 @@ export class HotRecipesComponent {
     this.getRecipes();
   }
 
-  // 賦值同步
-  // getRecipes() : void{
-  //   this.recipes = this.recipeService.getRecipes();
-  // }
-
-
-  //非同步從遠段伺服器獲取資料
+  /**
+   * 利用 RxJS 的 subscribe() 來處理獲取的異步資料
+   */
   // getRecipes() : void{
   //   this.recipeService.getRecipes()
   //       // .subscribe (recipes => this.recipes = recipes);
   //       .subscribe (recipes => this.recipes = recipes.slice (0,4)) // 回傳第1~5個
   // }
+
 
   getRecipes() : void{
     this.recipeService.getRecipes()

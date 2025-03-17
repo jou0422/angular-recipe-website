@@ -1,3 +1,4 @@
+import { filter } from 'rxjs';
 import { Component, Input } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { RecipeService } from '../recipe.service';
@@ -5,14 +6,14 @@ import { AsyncPipe, CommonModule, NgFor, NgIf } from '@angular/common';
 import { FilterItem, DiscoverComponent } from '../discover/discover.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RecipeDetail } from '../recipe';
-import { filterCuisine, filterIngredient, filterTime, filterType, Recipes } from '../mock-recipes';
+import { filterCuisine, filterIngredient, filterTime, filterType } from '../mock-recipes';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'app-search',
-    imports: [AsyncPipe, ReactiveFormsModule, CommonModule, RouterModule, NgFor, NgIf, FormsModule],
-    templateUrl: './search.component.html',
-    styleUrl: './search.component.scss'
+  selector: 'app-search',
+  imports: [AsyncPipe, ReactiveFormsModule, CommonModule, RouterModule, NgFor, NgIf, FormsModule],
+  templateUrl: './search.component.html',
+  styleUrl: './search.component.scss'
 })
 export class SearchComponent {
 
@@ -26,6 +27,7 @@ export class SearchComponent {
   filterDisplay: boolean = false;
 
   noRecipesFound: boolean = false;
+  noRecipesFetch: boolean = false;
 
   filteredIngredients: string[] = [];
 
@@ -39,7 +41,7 @@ export class SearchComponent {
   searchType: string = '';
   searchCuisine: string = '';
 
-  filteredRecipes: RecipeDetail[] = Recipes;
+  recipes: RecipeDetail[] = [];
 
 
   constructor(
@@ -64,7 +66,6 @@ export class SearchComponent {
     //     this.selectHashtag(parama['hashtag']);
     //   }
     // })
-
     this.route.queryParams.subscribe(parama => {
       if (parama['hashtag']) {
         // 自動選擇該 hashtag
@@ -72,21 +73,25 @@ export class SearchComponent {
         this.selectHashtag(parama['hashtag']);
       }
       if (parama['keyword']) {
-        this.searchRecipe(parama['keyword']);
+        this.getRecipes(parama['keyword']);
       }
     })
 
   }
 
-  searchRecipe(text: string) {
-      this.filteredRecipes = Recipes;
-      this.filteredRecipes = Recipes.filter(res => res.name.toLowerCase().includes(text.toLowerCase()));
-      if (this.filteredRecipes.length === 0) {
-        this.noRecipesFound = true;
-      } else {
+  getRecipes(text?:string): void {
+    this.recipeService.getRecipes(text? text : '')
+      .then((recipes: RecipeDetail[]) => {
+        this.recipes = recipes;
+        console.log(this.recipes);
+      })
+      .catch((error) => {
+        console.error('Failed to fetch recipes', error);
+        this.noRecipesFetch = true;
         this.noRecipesFound = false;
-      }
+      });
   }
+
 
   searchOption(option: string) {
     switch (option) {
@@ -163,7 +168,7 @@ export class SearchComponent {
     //   result = selectedItem;
     // }
     this.filters.push({ Item: type, SelectedItem: selectedItem });
-    this.filteredRecipes = this.findRecipe();
+    this.recipes = this.findRecipe();
   }
 
   /**
@@ -172,7 +177,7 @@ export class SearchComponent {
    * @returns finalRecipe
    */
   private findRecipe(): RecipeDetail[] {
-    let finalRecipe = this.filteredRecipes.filter(res =>
+    let finalRecipe = this.recipes.filter(res =>
       this.filters.every(ele => {
         if (ele.Item === 'types' || ele.Item === 'cuisines') return res.hashtag.includes(ele.SelectedItem);
         if (ele.Item === 'cooktime') return res.timeMin === Number(ele.SelectedItem);
@@ -194,7 +199,7 @@ export class SearchComponent {
   */
   public removeSingleFilter(index: number) {
     this.filters.splice(index, 1);
-    this.searchRecipe(this.recipeService.searchKeyword.value);
+    this.getRecipes(this.recipeService.searchKeyword.value);
   }
 
 
@@ -208,7 +213,7 @@ export class SearchComponent {
     this.removeQueryParams();
   }
 
-  removeQueryParams(){
+  removeQueryParams() {
     this.router.navigate([], {
       queryParams: {}
     })
@@ -225,10 +230,6 @@ export class SearchComponent {
   }
 
 
-  getRecipes(): void {
-    this.recipeService.getRecipes().then((recipes: RecipeDetail[]) => {
-      this.filteredRecipes = recipes;
-    })
-  }
+
 
 }

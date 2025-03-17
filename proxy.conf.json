@@ -4,5 +4,12 @@
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
+  },
+  "/auth": {
+    "target": "google.com/Oauth",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
   }
 }
+

@@ -99,14 +99,9 @@ export class SignupComponent {
   }
 
   ngOnInit(): void {
-    this.getUsers()
   }
 
-  getUsers() {
-    this.userService.getUsers().then((users: UsersInfo[]) => {
-      this.usersInfo = users;
-    })
-  }
+
   /**
    * ngModelChange事件觸發，檢查信箱是否重複
    * @memberof SignupComponent
@@ -129,6 +124,7 @@ export class SignupComponent {
     const ngbDateStructDate: NgbDateStruct = this.form.controls.birth.value!;
     const ngbDateStructToDate = new Date(ngbDateStructDate.year, ngbDateStructDate.month, ngbDateStructDate.day);
     const newUser: UsersInfo = {
+      id: this.usersInfo.length + 1,
       username: this.form.controls.username.value!,
       dateOfBirth: ngbDateStructToDate, // {year: 0, month: 0, day: 0}
       phone: this.form.controls.phone.value!,
@@ -139,7 +135,6 @@ export class SignupComponent {
     console.log(this.usersInfo);
     this.openSignUpModal()
     this.userService.createNewUser();
-    this.userService.createUser(newUser);
   }
 
 

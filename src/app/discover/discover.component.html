@@ -182,3 +182,19 @@
     </div>
   </div>
 </ng-container>
+
+
+@if (noRecipesFetch) {
+  <ng-container>
+    <div class="no-result align-items-center justify-content-center text-center">
+      <div class="exclamation">
+        <i class="bi bi-exclamation-circle"></i>
+      </div>
+      <div>
+        <h4>
+          Loading error, please try again later.
+        </h4>
+      </div>
+    </div>
+  </ng-container>
+}

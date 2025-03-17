@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Commentinfo, RecipeDetail } from './recipe';
-// import { Recipes } from './mock-recipes';
+import { RecipeDetail } from './recipe';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 
 
@@ -19,10 +18,10 @@ export class RecipeService {
   //   return recipes;
   // }
 
-  async getRecipes(): Promise<RecipeDetail[]> {
+  async getRecipes(text?:string): Promise<RecipeDetail[]> {
     // const recipes = await fetch(this.url);
     // return (await recipes.json()) ?? []; // 確保即使 API 回傳了空資料或錯誤資料，函數也會運行，不會拋出錯誤
-    const response = await fetch(this.url);
+    const response = await fetch(this.url + (text ? `?keyword=${text}` : '')); // 如果有 text 就加上 text 參數
     const recipes =  await response.json();
 
     if(!response.ok){
@@ -32,6 +31,8 @@ export class RecipeService {
       throw new Error('Invalid response');
     }
     return recipes;
+
+
   }
 
 

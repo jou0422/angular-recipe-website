@@ -1,7 +1,7 @@
 import { Component, ElementRef, NgModule, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { filterIngredient, filterTime, filterType, filterCuisine, Recipes } from '../mock-recipes';
+import { filterIngredient, filterTime, filterType, filterCuisine } from '../mock-recipes';
 import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { RecipeDetail } from '../recipe';
 import { RecipeService } from '../recipe.service';
@@ -27,8 +27,9 @@ export class DiscoverComponent {
   cuisines = filterCuisine;
   filters: FilterItem[] = [];
   filterDisplay: boolean = false;
-  recipes: RecipeDetail[] = Recipes;
+  recipes: RecipeDetail[] = [];
   noRecipesFound: boolean = false;
+  noRecipesFetch: boolean = false;
 
   ingredientNoResultsFound: boolean = false;
   timeNoResultsFound: boolean = false;
@@ -49,6 +50,7 @@ export class DiscoverComponent {
     this.filters.length > 0; {
       this.filterDisplay = true;
     }
+    this.getRecipes();
   }
 
   public ngOnInit(): void {
@@ -212,9 +214,14 @@ export class DiscoverComponent {
   // }
 
   getRecipes(): void {
-    this.recipeService.getRecipes().then((recipes: RecipeDetail[]) => {
+    this.recipeService.getRecipes()
+    .then((recipes: RecipeDetail[]) => {
       this.recipes = recipes;
     })
+    .catch((error) => {
+      console.error('Failed to fetch recipes', error);
+      this.noRecipesFetch = true;
+    });
   }
 
 

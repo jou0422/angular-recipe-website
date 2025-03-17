@@ -36,6 +36,7 @@ export class RecipeDetailedComponent {
   spaceBetween = 33;
   screenWidth!: number;
   showCarousel = true;
+  recipeNoFund: boolean = false;
 
 
   constructor(
@@ -82,6 +83,7 @@ export class RecipeDetailedComponent {
     })
     .catch((error) => {
       console.error('recipe not found', error);
+      this.recipeNoFund = true;
     });
   }
 

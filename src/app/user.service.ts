@@ -9,7 +9,7 @@ export class UserService {
   isLoginSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false); //() 裡給初始值
   isCreateSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   userName: string = '';
-  url = 'http://localhost:3000/user';
+  url = '/api/users';
 
   constructor() { }
 
@@ -45,17 +45,25 @@ export class UserService {
     return this.isCreateSubject.asObservable();
   }
 
-  async getUsers(): Promise<UsersInfo[]> {
-    const usersInfo = await fetch(this.url);
-    return (await usersInfo.json()) ?? [];
-  }
 
-  async createUser(user: UsersInfo): Promise<void> {
-    const usersInfo = await fetch(this.url, {
-      method: 'POST',
-      body: JSON.stringify(user),
-    })
+  async loginSuccess(inputEmail: string, inputPassword: string): Promise<{username: string}> {
+    try {
+      const response = await fetch(this.url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: inputEmail, password: inputPassword })
+      })
+      if (!response.ok) {
+        throw new Error(response.statusText || 'Failed to fetch data');
+      }
+      const usersInfo = await response.json();
+      return usersInfo;
+    } catch (error) {
+      console.error('Error fetching users', error);
+      throw error; // 重新拋出錯誤
+    }
   }
-
 }
 
