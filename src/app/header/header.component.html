@@ -61,7 +61,7 @@
             <img class="profile" src="assets/pics/persona1.png" alt="">
           </li>
           <li>
-            <p>Hi, {{userService.userName}}</p>
+            <p>Hi, {{userService.userName$ | async}}</p>
           </li>
           <li>
             <button class="btn nav-btn" (click)="onClickLogout()">Logout</button>

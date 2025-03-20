@@ -117,8 +117,9 @@ export class RecipeDetailedComponent {
     */
   onClickNeedToLogin() {
     const localStorageKey = localStorage.getItem('isLoginStatus');
-    if (localStorageKey !== 'true') {
-      this.openModalNeedToLogin();
+    const sessionStorageKey = sessionStorage.getItem('googleLoggedInUser');
+    if (!localStorageKey && !sessionStorageKey) {
+        this.openModalNeedToLogin();
     }
   }
 
@@ -139,7 +140,8 @@ export class RecipeDetailedComponent {
    */
   onClickLikeRecipe(incrementLikes: number): void {
     const localStorageKey = localStorage.getItem('isLoginStatus');
-    if (localStorageKey !== 'true') {
+    const sessionStorageKey = sessionStorage.getItem('googleLoggedInUser');
+    if (!localStorageKey && !sessionStorageKey) {
       this.openModalNeedToLogin();
     } else {
       if (incrementLikes == 0) {
@@ -159,7 +161,8 @@ export class RecipeDetailedComponent {
    */
   onClickLikeComment(index: number): void {
     const localStorageKey = localStorage.getItem('isLoginStatus');
-    if (localStorageKey !== 'true') {
+    const sessionStorageKey = sessionStorage.getItem('googleLoggedInUser');
+    if (!localStorageKey && !sessionStorageKey) {
       this.openModalNeedToLogin();
     } else {
       switch (this.recipe.comments[index].isLike) {
@@ -209,15 +212,28 @@ export class RecipeDetailedComponent {
    * 點擊留言 btn
    */
   onClickLeaveComment() {
-    const newComment: Commentinfo = {
-      persona: this.userService.userName,
-      comment: this.form.controls.comment.value!,
-      like: 0,
-      isLike: 0
-    }
-    this.recipe.comments.push(newComment);
-    this.recipe.commentQty++;
-    this.onClickSubmitComment();
+    this.userService.userName$.subscribe(res => {
+      const newComment: Commentinfo = {
+        persona: res,
+        comment: this.form.controls.comment.value!,
+        like: 0,
+        isLike: 0
+      }
+      this.recipe.comments.push(newComment);
+      this.recipe.commentQty++;
+      this.onClickSubmitComment();
+    });
+
+
+  //   const newComment: Commentinfo = {
+  //     persona: this.userService.userName,
+  //     comment: this.form.controls.comment.value!,
+  //     like: 0,
+  //     isLike: 0
+  //   }
+  //   this.recipe.comments.push(newComment);
+  //   this.recipe.commentQty++;
+  //   this.onClickSubmitComment();
   }
 
 

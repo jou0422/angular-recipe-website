@@ -7,6 +7,7 @@ import { Location, NgClass, NgIf } from '@angular/common';
 import { ModalComponent } from '../modal/modal.component';
 import { UserService } from '../user.service';
 import { Observable } from 'rxjs';
+import { gapi } from 'gapi-script';
 
 
 @Component({
@@ -47,13 +48,6 @@ export class LoginComponent {
   ngOnInit() {
   }
 
-  // onSignIn() {
-  //   this.googleAuthService.signIn().then((googleUser: any) => {
-  //     console.log(googleUser);
-  //     this.userProfile = this.googleAuthService.getUserProfile();
-  //   });
-  // }
-
 
   /**
    * 驗證登入者身分
@@ -66,8 +60,8 @@ export class LoginComponent {
     this.userService.loginSuccess(inputEmail, inputPassword)
       .then((usersInfo:{ username:string }) => {
         if (usersInfo.username !== '') {
+          this.userService.userName$.next(usersInfo.username);
           this.openLoginModal(usersInfo.username);
-          this.userService.userName = usersInfo.username;
         }
         else {
           this.openLoginFailednModal();

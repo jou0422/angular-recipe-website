@@ -1,4 +1,5 @@
-import { Component, inject, input } from '@angular/core';
+import { UsersInfo } from './../mock-users';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { NavigationStart, Router, RouterModule } from '@angular/router';
 import { CommonModule, NgIf } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -9,10 +10,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from '../modal/modal.component';
 
 @Component({
-    selector: 'app-header',
-    imports: [CommonModule, RouterModule, NgIf, FormsModule, ReactiveFormsModule],
-    templateUrl: './header.component.html',
-    styleUrl: './header.component.scss'
+  selector: 'app-header',
+  imports: [CommonModule, RouterModule, NgIf, FormsModule, ReactiveFormsModule],
+  templateUrl: './header.component.html',
+  styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
 
@@ -20,12 +21,13 @@ export class HeaderComponent {
   showHeader: boolean = false;
   isLoggedIn!: Observable<boolean>;
   private modalService = inject(NgbModal);
+  userProfile: any;
 
   // 監聽路由變化事件
   constructor(
     public router: Router,
     private recipeService: RecipeService,
-    public userService: UserService, ) {
+    public userService: UserService,) {
 
     router.events.forEach((event: any) => {
       if (event instanceof NavigationStart) {
@@ -36,19 +38,25 @@ export class HeaderComponent {
         }
       }
     })
-
     this.isLoggedIn = userService.isLoggedIn();
+    this.userService.userName$.subscribe();
   }
 
-  onClickLogout():void{
+  ngOnInit() {
+
+  }
+
+
+  onClickLogout(): void {
     this.userService.changeToLogoutStatus();
-    const modalRef = this.modalService.open(ModalComponent, { centered: true});
+    const modalRef = this.modalService.open(ModalComponent, { centered: true });
     modalRef.componentInstance.modalType = 'logOut';
+    sessionStorage.clear();
   }
 
   public setKeywordValue(): void {
     this.router.navigate(['search'], {
-      queryParams: { keyword : this.search }
+      queryParams: { keyword: this.search }
     })
     this.recipeService.searchKeyword.next(this.search);
   }

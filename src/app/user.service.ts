@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from "rxjs";
-import { UsersInfo } from './user';
 
 @Injectable({
   providedIn: 'root'
@@ -8,15 +7,15 @@ import { UsersInfo } from './user';
 export class UserService {
   isLoginSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false); //() 裡給初始值
   isCreateSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  userName: string = '';
+  userName$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   url = '/api/users';
 
   constructor() { }
 
   //如果有取得token，表示使用者有登入系統
-  private hasTocken(): boolean {
-    return Boolean(localStorage.getItem('isLoginStatus')); // ?? >> 當前面的值是 null 返回 false
-  }
+  // private hasTocken(): boolean {
+  //   return Boolean(localStorage.getItem('loggedInUser')); // ?? >> 當前面的值是 null 返回 false
+  // }
 
   //登入使用者，並通知所有訂閱者
   changeToLoginStatus(): void {
