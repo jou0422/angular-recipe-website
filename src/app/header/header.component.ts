@@ -39,7 +39,6 @@ export class HeaderComponent {
       }
     })
     this.isLoggedIn = userService.isLoggedIn();
-    this.userService.userName$.subscribe();
   }
 
   ngOnInit() {

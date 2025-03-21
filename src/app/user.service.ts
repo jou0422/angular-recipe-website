@@ -10,7 +10,13 @@ export class UserService {
   userName$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   url = '/api/users';
 
-  constructor() { }
+  constructor() {
+    // 檢查 username 有沒有資料，有的話改變初始值
+    const username = localStorage.getItem('isLoginStatus')
+    if (username) {
+      this.userName$ = new BehaviorSubject<string>(username);
+    }
+  }
 
   //如果有取得token，表示使用者有登入系統
   // private hasTocken(): boolean {
@@ -19,7 +25,8 @@ export class UserService {
 
   //登入使用者，並通知所有訂閱者
   changeToLoginStatus(): void {
-    localStorage.setItem('isLoginStatus', 'true');
+    this.userName$.subscribe((value =>
+      localStorage.setItem('isLoginStatus', value)))
     this.isLoginSubject.next(true);
   }
 
@@ -45,7 +52,7 @@ export class UserService {
   }
 
 
-  async loginSuccess(inputEmail: string, inputPassword: string): Promise<{username: string}> {
+  async loginSuccess(inputEmail: string, inputPassword: string): Promise<{ username: string }> {
     try {
       const response = await fetch(this.url, {
         method: 'POST',

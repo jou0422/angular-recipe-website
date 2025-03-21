@@ -28,7 +28,7 @@ export class AppComponent {
 
   ngOnInit(): void {
     const localStorageKey = localStorage.getItem('isLoginStatus');
-    if(localStorageKey === 'true'){
+    if(localStorageKey){
       this.userService.changeToLoginStatus();
     } else {
       this.userService.changeToLogoutStatus();
