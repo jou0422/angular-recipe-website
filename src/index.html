@@ -8,8 +8,8 @@
   <script src="https://accounts.google.com/gsi/client" async defer ></script>
 
   <script>
-    function decodeJWTToken(tocken) {
-      return JSON.parse(atob(tocken.split('.')[1]));
+    function decodeJWTToken(token) {
+      return JSON.parse(atob(token.split('.')[1]));
     }
     function handleCredentialResponse(response) {
       const responsePayload = decodeJWTToken(response.credential);

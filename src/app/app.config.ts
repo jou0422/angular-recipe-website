@@ -6,6 +6,8 @@ import { bootstrapApplication } from '@angular/platform-browser';
 
 import { routes } from './app.routes';
 import { AppComponent } from './app.component';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from './auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   // providers: [provideRouter(routes)]
@@ -17,6 +19,10 @@ export const appConfig: ApplicationConfig = {
         scrollPositionRestoration: 'enabled',
         anchorScrolling: 'enabled',
       }),
-    ),]
+    ),
+    provideHttpClient(
+      withInterceptors([authInterceptor])
+    )
+  ]
 };
 

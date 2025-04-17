@@ -27,7 +27,10 @@ export class DiscoverComponent {
   cuisines = filterCuisine;
   filters: FilterItem[] = [];
   filterDisplay: boolean = false;
+
   recipes: RecipeDetail[] = [];
+  allRecipes: RecipeDetail[] = [];
+
   noRecipesFound: boolean = false;
   noRecipesFetch: boolean = false;
 
@@ -50,7 +53,6 @@ export class DiscoverComponent {
     this.filters.length > 0; {
       this.filterDisplay = true;
     }
-    this.getRecipes();
   }
 
   public ngOnInit(): void {
@@ -65,15 +67,57 @@ export class DiscoverComponent {
     //     this.selectHashtag(parama['hashtag']);
     //   }
     // })
-
-    this.route.queryParams.subscribe(parama => {
-      if (parama['hashtag']) {
-        // 自動選擇該 hashtag
-        // if 條件為必要，如果沒有 if 就會代入空參數，就會沒有食譜顯示
-        this.selectHashtag(parama['hashtag']);
+    this.recipeService.getRecipes()
+    .subscribe({
+      next: res => {
+        this.recipes = res;
+        this.allRecipes = res;
+        this.route.queryParams.subscribe(parama => {
+          if (parama['hashtag']) {
+            // 自動選擇該 hashtag
+            // if 條件為必要，如果沒有 if 就會代入空參數，就會沒有食譜顯示
+            this.selectHashtag(parama['hashtag']);
+          }
+        })
+      },
+      error: err => {
+      console.error('Failed to fetch recipes', err);
+      this.noRecipesFetch = true;
       }
     })
   }
+
+    // private getRecipes(): void {
+  //   this.recipeService.getRecipes()
+  //     .subscribe(recipes => this.recipes = recipes);
+  //   // .subscribe(recipes => this.recipes = recipes.slice(0, 5)) // 回傳第1~5個
+  // }
+
+  // getRecipes(): void {
+  //   this.recipeService.getRecipes()
+  //   .then((recipes: RecipeDetail[]) => {
+  //     this.recipes = recipes;
+  //   })
+  //   .catch((error) => {
+  //     console.error('Failed to fetch recipes', error);
+  //     this.noRecipesFetch = true;
+  //   });
+  // }
+
+  // HttpClient 寫法
+  // getRecipes():void{
+  //   this.recipeService.getRecipes()
+  //   .subscribe({
+  //     next: res => {
+  //       this.recipes = res;
+  //       this.allRecipes = res;
+  //     },
+  //     error: err => {
+  //     console.error('Failed to fetch recipes', err);
+  //     this.noRecipesFetch = true;
+  //     }
+  //   })
+  // }
 
 
   searchOption(option: string) {
@@ -160,7 +204,7 @@ export class DiscoverComponent {
    * @returns finalRecipe
    */
   private findRecipe(): RecipeDetail[] {
-    let finalRecipe = this.recipes.filter(res =>
+    let finalRecipe = this.allRecipes.filter(res =>
       this.filters.every(ele => {
         if (ele.Item === 'types' || ele.Item === 'cuisines') return res.hashtag.includes(ele.SelectedItem);
         if (ele.Item === 'cooktime') return res.timeMin === Number(ele.SelectedItem);
@@ -182,7 +226,7 @@ export class DiscoverComponent {
   */
   public removeSingleFilter(index: number) {
     this.filters.splice(index, 1);
-    this.getRecipes();
+    this.recipes = this.allRecipes;
     this.recipes = this.findRecipe();
   }
 
@@ -192,7 +236,7 @@ export class DiscoverComponent {
    */
   public clearAllFilters() {
     this.filters.splice(0);
-    this.getRecipes();
+    this.recipes = this.allRecipes;
   }
 
 
@@ -207,22 +251,7 @@ export class DiscoverComponent {
 
 
 
-  // private getRecipes(): void {
-  //   this.recipeService.getRecipes()
-  //     .subscribe(recipes => this.recipes = recipes);
-  //   // .subscribe(recipes => this.recipes = recipes.slice(0, 5)) // 回傳第1~5個
-  // }
 
-  getRecipes(): void {
-    this.recipeService.getRecipes()
-    .then((recipes: RecipeDetail[]) => {
-      this.recipes = recipes;
-    })
-    .catch((error) => {
-      console.error('Failed to fetch recipes', error);
-      this.noRecipesFetch = true;
-    });
-  }
 
 
 

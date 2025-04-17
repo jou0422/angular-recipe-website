@@ -79,18 +79,32 @@ export class SearchComponent {
 
   }
 
-  getRecipes(text?:string): void {
-    this.recipeService.getRecipes(text? text : '')
-      .then((recipes: RecipeDetail[]) => {
-        this.recipes = recipes;
-        console.log(this.recipes);
-      })
-      .catch((error) => {
-        console.error('Failed to fetch recipes', error);
+  // getRecipes(text?:string): void {
+  //   this.recipeService.getRecipes(text? text : '')
+  //     .then((recipes: RecipeDetail[]) => {
+  //       this.recipes = recipes;
+  //       console.log(this.recipes);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Failed to fetch recipes', error);
+  //       this.noRecipesFetch = true;
+  //       this.noRecipesFound = false;
+  //     });
+  // }
+
+    // HttpClient 寫法
+    getRecipes(text?:string):void{
+      this.recipeService.getRecipes(text? text : '')
+      .subscribe({
+        next: res => (this.recipes = res),
+        error: err => {
+        console.error('Failed to fetch recipes', err);
         this.noRecipesFetch = true;
         this.noRecipesFound = false;
-      });
-  }
+        }
+      })
+    }
+
 
 
   searchOption(option: string) {

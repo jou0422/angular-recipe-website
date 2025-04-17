@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RecipeDetail } from './recipe';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, of, throwError, map } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 
 
 
@@ -9,30 +10,46 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 })
 export class RecipeService {
   public searchKeyword: BehaviorSubject<string> = new BehaviorSubject('');
-  url = '/api/recipe';
+  url = 'https://recipe-api-h6fg.onrender.com/api/recipe';
 
-  constructor() { }
+  constructor(private http:HttpClient) { }
 
   // public getRecipes(): Observable<RecipeDetail[]> {
   //   const recipes = of(Recipes); // 回傳一個 Observable<RecipeDetail[]> 發出單個值 (recipe 陣列 = recipes)
   //   return recipes;
   // }
 
-  async getRecipes(text?:string): Promise<RecipeDetail[]> {
-    // const recipes = await fetch(this.url);
-    // return (await recipes.json()) ?? []; // 確保即使 API 回傳了空資料或錯誤資料，函數也會運行，不會拋出錯誤
-    const response = await fetch(this.url + (text ? `?keyword=${text}` : '')); // 如果有 text 就加上 text 參數
-    const recipes =  await response.json();
+  // async getRecipes(text?:string): Promise<RecipeDetail[]> {
+  //   // const recipes = await fetch(this.url);
+  //   // return (await recipes.json()) ?? []; // 確保即使 API 回傳了空資料或錯誤資料，函數也會運行，不會拋出錯誤
+  //   const response = await fetch(this.url + (text ? `?keyword=${text}` : '')); // 如果有 text 就加上 text 參數
+  //   const recipes =  await response.json();
 
-    if(!response.ok){
-      throw new Error(response.statusText || 'Failed to fetch recipes');
-    }
-    if (!recipes || !Array.isArray(recipes)) {
-      throw new Error('Invalid response');
-    }
-    return recipes;
+  //   if(!response.ok){
+  //     throw new Error(response.statusText || 'Failed to fetch recipes');
+  //   }
+  //   if (!recipes || !Array.isArray(recipes)) { // 檢查回傳的資料是不是一個陣列
+  //     throw new Error('Invalid response');
+  //   }
+  //   return recipes;
+  // }
 
-
+  // HttpClient 寫法
+  getRecipes(text?:string):Observable<RecipeDetail[]>{
+    const params = text ? new HttpParams().set('keyword', text): undefined;
+    return this.http.get<RecipeDetail[]>(this.url, {params: params})
+    .pipe(
+      map(res => {
+        if (!res || !Array.isArray(res)){
+          throw new Error('Invalid response')
+        }
+        return res;
+      }),
+      catchError(err => {
+        const errorMessage = err.statusText || err.message || 'Failed to fetch recipes';
+        return throwError(() => new Error(errorMessage));
+      } )
+    )
   }
 
 
@@ -42,21 +59,32 @@ export class RecipeService {
   //   return of(recipe);
   // }
 
-  async getRecipe(id: number): Promise<RecipeDetail> {
-    // const recipe = await fetch(`${this.url}/${id}`);
-    // return (await recipe.json()) ?? {};
-    const response = await fetch(`${this.url}/${id}`);
-    const recipe =  await response.json();
+  // async getRecipe(id: number): Promise<RecipeDetail> {
+  //   // const recipe = await fetch(`${this.url}/${id}`);
+  //   // return (await recipe.json()) ?? {};
+  //   const response = await fetch(`${this.url}/${id}`);
+  //   const recipe =  await response.json();
 
-    if(!response.ok){
-      throw new Error(response.statusText || 'Failed to fetch recipe id: ${id}');
-    }
-    if (!recipe) {
-      throw new Error('Invalid response');
-    }
-    return recipe;
+  //   if(!response.ok){
+  //     throw new Error(response.statusText || 'Failed to fetch recipe id: ${id}');
+  //   }
+  //   if (!recipe) {
+  //     throw new Error('Invalid response');
+  //   }
+  //   return recipe;
+  // }
+
+  // HttpClient 寫法
+  getRecipe(id:number):Observable<RecipeDetail>{
+    return this.http.get<RecipeDetail>(`${this.url}/${id}`)
+    .pipe(
+      catchError(this.handleError)
+    )
   }
 
-
-
+  handleError(error:HttpErrorResponse){
+    let errorMessage = 'Something went wrong, try again later.'
+    console.log(error.error,error.message);
+    return throwError(() => new Error(errorMessage));
+  }
 }

@@ -37,16 +37,28 @@ export class HotRecipesComponent {
   // }
 
 
-  getRecipes() : void{
-    this.recipeService.getRecipes()
-    .then((recipes: RecipeDetail[]) => {
-      this.recipes = recipes.sort((a,b) => b.likeQty - a.likeQty).slice(0, 4);
-    })
-    .catch((error) => {
-      console.error('Failed to fetch recipes', error);
-      this.noRecipesfound = true;
-    });
-  }
+  // getRecipes() : void{
+  //   this.recipeService.getRecipes()
+  //   .then((recipes: RecipeDetail[]) => {
+  //     this.recipes = recipes.sort((a,b) => b.likeQty - a.likeQty).slice(0, 4);
+  //   })
+  //   .catch((error) => {
+  //     console.error('Failed to fetch recipes', error);
+  //     this.noRecipesfound = true;
+  //   });
+  // }
+
+    // HttpClient 寫法
+    getRecipes():void{
+      this.recipeService.getRecipes()
+      .subscribe({
+        next: res => (this.recipes = res.sort((a,b) => b.likeQty - a.likeQty).slice(0, 4)),
+        error: err => {
+        console.error('Failed to fetch recipes', err);
+        this.noRecipesfound = true;
+        }
+      })
+    }
 
 
 

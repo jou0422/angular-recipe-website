@@ -11,11 +11,11 @@ import { UserService } from '../user.service';
 import { SwiperModule } from 'swiper/types';
 
 @Component({
-    selector: 'app-recipe-detailed',
-    imports: [RouterModule, NgIf, CommonModule, NgFor, ReactiveFormsModule],
-    templateUrl: './recipe-detailed.component.html',
-    styleUrl: './recipe-detailed.component.scss',
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  selector: 'app-recipe-detailed',
+  imports: [RouterModule, NgIf, CommonModule, NgFor, ReactiveFormsModule],
+  templateUrl: './recipe-detailed.component.html',
+  styleUrl: './recipe-detailed.component.scss',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class RecipeDetailedComponent {
 
@@ -41,31 +41,32 @@ export class RecipeDetailedComponent {
 
   constructor(
     private route: ActivatedRoute,  // 提取路由引數 id
-    private router:Router,
+    private router: Router,
     private recipeService: RecipeService,  // 獲取資料
     private scroller: ViewportScroller,
     private userService: UserService,
   ) {
     this.getRecipe();
-}
+  }
 
   ngOnInit(): void {
-    this.recipeService.getRecipes().then((recipes: RecipeDetail[]) => {
-    this.recipes = recipes
-    })
+    this.recipeService.getRecipes()
+    .subscribe({
+      next: res => (this.recipes = res)
+    });
     this.getRecipe();
 
     // 監聽路由變化，在同一個頁面點擊其他食譜時，重新獲取食譜資料
     this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd){
+      if (event instanceof NavigationEnd) {
         this.getRecipe();
       }
     })
   }
 
-    /**
-   * 點選食譜跑出相對食譜 detailed
-   */
+  /**
+ * 點選食譜跑出相對食譜 detailed
+ */
   // 還要在 sevice 裡新增 getRecipes() 的方法
   // getRecipe(): void {
   //   const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -74,17 +75,32 @@ export class RecipeDetailedComponent {
   //   this.otherRecipes = this.recipes.filter((res) => res.id !== id)
   // }
 
+  // getRecipe(): void {
+  //   const id = Number(this.route.snapshot.params['id']);
+  //   this.recipeService.getRecipe(id)
+  //   .then((recipe) => {
+  //     this.recipe = recipe;
+  //     this.otherRecipes = this.recipes.filter((res) => res.id !== id)
+  //   })
+  //   .catch((error) => {
+  //     console.error('recipe not found', error);
+  //     this.recipeNoFund = true;
+  //   });
+  // }
+
+  // HttpClient
   getRecipe(): void {
     const id = Number(this.route.snapshot.params['id']);
     this.recipeService.getRecipe(id)
-    .then((recipe) => {
-      this.recipe = recipe;
-      this.otherRecipes = this.recipes.filter((res) => res.id !== id)
-    })
-    .catch((error) => {
-      console.error('recipe not found', error);
-      this.recipeNoFund = true;
-    });
+      .subscribe({
+        next: res => {
+          this.recipe = res;
+          this.otherRecipes = this.recipes.filter((res) => res.id !== id)},
+        error: err => {
+          console.error('recipe not found', err);
+          this.recipeNoFund = true;
+        }
+      })
   }
 
   @HostListener('window:resize')
@@ -119,7 +135,7 @@ export class RecipeDetailedComponent {
     const localStorageKey = localStorage.getItem('isLoginStatus');
     const sessionStorageKey = sessionStorage.getItem('googleLoggedInUser');
     if (!localStorageKey && !sessionStorageKey) {
-        this.openModalNeedToLogin();
+      this.openModalNeedToLogin();
     }
   }
 
@@ -225,19 +241,19 @@ export class RecipeDetailedComponent {
     });
 
 
-  //   const newComment: Commentinfo = {
-  //     persona: this.userService.userName,
-  //     comment: this.form.controls.comment.value!,
-  //     like: 0,
-  //     isLike: 0
-  //   }
-  //   this.recipe.comments.push(newComment);
-  //   this.recipe.commentQty++;
-  //   this.onClickSubmitComment();
+    //   const newComment: Commentinfo = {
+    //     persona: this.userService.userName,
+    //     comment: this.form.controls.comment.value!,
+    //     like: 0,
+    //     isLike: 0
+    //   }
+    //   this.recipe.comments.push(newComment);
+    //   this.recipe.commentQty++;
+    //   this.onClickSubmitComment();
   }
 
 
-    onClickHashtag(filter:string){
+  onClickHashtag(filter: string) {
     this.router.navigate(['discover'], {
       queryParams: { hashtag: filter }
     })
