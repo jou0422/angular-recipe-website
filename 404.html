@@ -14,7 +14,7 @@
     function handleCredentialResponse(response) {
       const responsePayload = decodeJWTToken(response.credential);
       sessionStorage.setItem('googleLoggedInUser', JSON.stringify(responsePayload));
-      window.location.href = '/home';
+      window.location.href = '/angular-recipe-website/home';
     }
   </script>
 
